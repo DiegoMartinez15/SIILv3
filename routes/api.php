@@ -13,4 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
+
+
 Route::apiResource("areas","AreasController");

@@ -17,6 +17,7 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table
+        
         :headers="hTBCategorias"
         :items="arrayCategorias"
         :footer-props="{
@@ -26,7 +27,7 @@
         :items-per-page="5"
         :search="searchCategorias"
         multi-sort
-        class="elevation-1"
+        class="elevation-5 text--center ml-80"
       >
       <!-- Templeate para form modal para agregar o actualizar categorias-->
     <template v-slot:top>
@@ -92,6 +93,7 @@
           </template>
           <span>Actualizar Datos</span>
         </v-tooltip>
+        &nbsp;&nbsp;
         <v-tooltip top>
           <template v-slot:activator="{on}">
             <v-btn
@@ -192,17 +194,13 @@
         me.modalCategoria = true;
       },
       saveCategoria() {
-        let me = this,
-        $allowedOrigins = array(
-        'http://127.0.0.1:8000/api', // Laravel API Domain
-        'http://localhost:8080/' // VueJS CLient
-            );
-      
+        let me = this;
+       
         if(me.$refs.formCategoria.validate()) {
           let accion = me.categoria.id == null ? "add" : "upd";
           me.loader = true;
           me.$http
-            .post(`${me.$url}/areas`, me.categoria,$$allowedOrigins)
+            .post(`${me.$url}/areas`, me.categoria)
             .then(function(response) {
               me.verificarAccionDato(response.data, response.status, accion);
               me.cerrarModal();

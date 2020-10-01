@@ -3,9 +3,14 @@
     <v-navigation-drawer
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
+      :src="'/img/lock.jpg'"
+      
+      
       app
+      
     >
-      <v-list dense>
+  
+      <v-list dense style="color:white"  >
       <template>
           <v-list-item link :to="{path:'/'}">
               <v-list-item-action>
@@ -135,6 +140,7 @@
           </v-list-item>
         </v-list-group>
       </v-list>
+    
     </v-navigation-drawer>
 
     <v-app-bar
