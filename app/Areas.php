@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Areas extends Model
 {
-    protected $fillable = ["nombre"];
+    protected $table = "areas";
+    protected $fillable=['nombre'];
+
+    public function empresa(){
+        return $this->hasMany('App/Empresa');
+    }
 }

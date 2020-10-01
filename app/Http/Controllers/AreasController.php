@@ -72,7 +72,9 @@ class AreasController extends Controller
      */
     public function update(Request $request, Areas $areas)
     {
-        //
+        $area =Areas::findOrfail($request->id);
+        $area->nombre = $request->nombre;        
+        $area->save();
     }
 
     /**
@@ -81,8 +83,13 @@ class AreasController extends Controller
      * @param  \App\Areas  $areas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Areas $areas)
+
+    public function delete(Request $request)
     {
-        //
+        $area =Areas::findOrfail($request->id);
+        $area->delete();
+        
     }
+
+
 }
