@@ -31,14 +31,16 @@ class AreasController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     ** @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Areas $areas)
     {
-        $area = Areas::create($request->all());
-        return $area;
+        $area = new Areas();
+        $area->nombre = $request->nombre;        
+        $area->save();
+        return $area;        
     }
 
     /**
@@ -51,7 +53,6 @@ class AreasController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -62,7 +63,6 @@ class AreasController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -70,26 +70,25 @@ class AreasController extends Controller
      * @param  \App\Areas  $areas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Areas $areas)
-    {
-        $area =Areas::findOrfail($request->id);
+    public function update(Request $request, Areas $areas,$id)
+    {    
+        $area =Areas::findOrfail($id);
         $area->nombre = $request->nombre;        
         $area->save();
     }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Areas  $areas
      * @return \Illuminate\Http\Response
      */
-
-    public function delete(Request $request)
+    public function delete(Request $request, Areas $areas)
     {
         $area =Areas::findOrfail($request->id);
-        $area->delete();
-        
+        $area->delete();   
     }
-
-
+    public function destroy($id){
+        $area =Areas::findOrfail($id);
+        $area->delete();
+    }
 }

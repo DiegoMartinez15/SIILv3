@@ -3,16 +3,13 @@
     <v-navigation-drawer
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
-      :src="'/img/lock.jpg'"
-      
-      
+      :src="'/img/login.jpg'"
       app
-      
     >
   
-      <v-list dense style="color:white"  >
+      <v-list dense >
       <template>
-          <v-list-item link :to="{path:'/'}">
+          <v-list-item link :to="{path:'/'}" style="color:white">
               <v-list-item-action>
                 <v-icon>home</v-icon>
               </v-list-item-action>
@@ -35,21 +32,21 @@
         </template>
         <!--Menu de categoria-->
 
-        <v-list-item link :to="{name:'categorias'}">
+        <v-list-item link :to="{name:'areas'}">
               <v-list-item-action>
                 <v-icon>category</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Categorias</v-list-item-title>
+                <v-list-item-title>Areas</v-list-item-title>
               </v-list-item-content>
          </v-list-item>  
             <!--MENU DE MARCAS-->
-            <v-list-item link :to="{name: 'marcas'}">
+            <v-list-item link :to="{name: 'usuarios'}">
               <v-list-item-action>
                 <v-icon>speaker_phone</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Marcas</v-list-item-title>
+                <v-list-item-title>Usuarios</v-list-item-title>
               </v-list-item-content>
             </v-list-item>      
             <!--Menu de Producto--> 
@@ -151,10 +148,10 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title
-        style="width: 300px"
+        style="width: 600px"
         class="ml-0 pl-4"
       >
-        <span class="hidden-sm-and-down">SIIL</span>
+        <span class="hidden-sm-and-down">Sistema de Intermediacion Laboral</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>

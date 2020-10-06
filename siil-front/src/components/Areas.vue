@@ -1,15 +1,17 @@
 <template>
 <div class="content">
+  
   <div class="md-layout-item md-medium-size-100 md-xsmall-sixe-100 md-size-100">
+    
     <v-overlay :value="loader" :z-index="'99999999'">
         <v-progress-circular indeterminate size="80" color="grey darken-4"></v-progress-circular>
     </v-overlay>
     <v-card>
       <v-card-title>
-        Listado de Categorias de Productos
+        Listado de Areas de empresas
        <div class="flex-grow-1"></div>
         <v-text-field
-          v-model="searchCategorias"
+          v-model="searchAreas"
           append-icon="search"
           label="Buscar"
           single-line
@@ -18,45 +20,46 @@
       </v-card-title>
       <v-data-table
         
-        :headers="hTBCategorias"
-        :items="arrayCategorias"
+        :headers="hTBAreas"
+        :items="arrayAreas"
         :footer-props="{
           'items-per-page-options' :[5,10,15,20,30],
           'items-per-page-text' :'Registros por Página'
         }"
         :items-per-page="5"
-        :search="searchCategorias"
+        :search="searchAreas"
         multi-sort
-        class="elevation-5 text--center ml-80"
+        class="elevation-3 text--center ml-80 pl-10 pr-10"
       >
       <!-- Templeate para form modal para agregar o actualizar categorias-->
     <template v-slot:top>
       <v-toolbar flat color="white">
         <div class="flex-grow-1"></div>
-        <v-dialog v-model="modalCategoria" persistent max-width="700px">
+        <v-dialog v-model="modalAreas" persistent max-width="700px">
+          
           <template v-slot:activator="{ on }">
-            <v-btn elevation="10" color="grey darken-3" dark class="mb-2" v-on="on">
-              Agregar&nbsp;
+           <v-btn elevation="10" color="blue darken-1" dark class="mb-2" v-on="on">
+              Agregar&nbsp;&nbsp;
               <v-icon>library_add</v-icon>
             </v-btn>
           </template>
           <v-card>
-            <v-card-title class="headline grey lighten-2" primary-titles>
+            <v-card-title class="headline light-blue lighten-5" primary-titles>
               <span class="headline" v-text="formTitle"></span>
             </v-card-title>
             <v-card-text>
               <v-container>
-                <v-form ref="formCategoria" v-model="validForm" :lazy-validation="true">
-                  <v-text-field
-                   append-icon="mdi-folder-outline"
-                   v-model="categoria.nombre"
-                   @keyup="errorsNombre = []"
-                   :rules="[v => !!v || 'Nombre Es Requerido']"
-                   label="Nombre"
-                   required
-                   :error-messages="errorsNombre"
-                  ></v-text-field>
-                </v-form>
+                <v-form ref="formAreas" v-model="validForm" :lazy-validation="true">
+                <v-text-field
+                  append-icon="mdi-folder-outline"
+                  v-model="areas.nombre"
+                  @keyup="errorsNombre = []"
+                  :rules="[v => !!v || 'Nombre Es Requerido']"
+                  label="Nombre"
+                  required
+                  :error-messages="errorsNombre"
+                  ></v-text-field>  
+                      </v-form>
               </v-container>
             </v-card-text>
             <v-divider></v-divider>           
@@ -66,7 +69,7 @@
                 <v-btn
                   color="info darken-1"
                   :disabled="!validForm"
-                  @click="saveCategoria()"
+                  @click="saveAreas()"
                   text
                   v-text="btnTitle"
                 ></v-btn>
@@ -83,6 +86,7 @@
               color="success"            
               elevation="8"
               small
+              fab
               dark
               :disabled="item.id<0"
               v-on="on"
@@ -101,9 +105,10 @@
               elevation="8"
               small
               dark
+              fab
               :disabled="item.id < 0"
               v-on="on"
-              @click="deleteCategoria(item)"
+              @click="deleteAreas(item)"
             >
             <v-icon>delete</v-icon>
             </v-btn>
@@ -126,44 +131,45 @@
   export default {
     data () {
       return {
-        arrayCategorias:[],
-        hTBCategorias:[
-          {text:"Nombre", value:"nombre"},
-          {text:"Acciones", value:"action",sortable:false,aling:"center"},
+        arrayAreas:[],
+        hTBAreas:[
+          {text:"Nombre", value:"nombre" , class:'blue-grey lighten-4 '},
+          {text:"Acciones", value:"action",sortable:false,aling:"center",class:'blue-grey lighten-4'},
         ],
         loader:false,
-        searchCategorias:"",
-        modalCategoria:false,
-        categoria:{
+        searchAreas:"",
+        modalAreas:false,
+        areas:{
           id:null,
-          nombre:"",
+          nombre:null,
         },
         validForm:true,
         snackbar:false,
         msjSnackBar:"",
         errorsNombre:[],
-        editedCategoria:-1,
+        editedAreas:-1,
+        prueba: null,
       };
     },
     computed: {
       formTitle(){
-        return this.categoria.id == null
-        ? "Agregar Categoria"
-        : "Actualizar Categoria";
+        return this.areas.id == null
+        ? "Agregar Areas"
+        : "Actualizar Areas";
       },
       btnTitle(){
-        return this.categoria.id == null ? "Guardar" : "Actualizar";
+        return this.areas.id == null ? "Guardar" : "Actualizar";
       },
     },
     methods: {
-      fetchCategorias() {
+      fetchAreas() {
         let me = this;
         me.loader = true;
         me.$http
         .get(`${me.$url}/areas`)
         .then(function(response){
             console.log(response.data)
-          me.arrayCategorias = response.data;
+          me.arrayAreas = response.data;
           me.loader = false;
         })
         .catch(function(error){
@@ -173,9 +179,9 @@
       },
       cerrarModal(){
         let me = this;
-        me.modalCategoria = false;
+        me.modalAreas = false;
         setTimeout(() => {
-          me.categoria={
+          me.areas={
             id:null,
             nombre:"",
           };
@@ -185,22 +191,22 @@
       resetValidation() {
         let me = this;
         me.errorsNombre = [];
-        me.$refs.formCategoria.resetValidation();
+        me.$refs.formAreas.resetValidation();
       },
-      showModalEditar(cat) {
+      showModalEditar(area) {
         let me = this;
-        me.editedCategoria = me.arrayCategorias.indexOf(cat);
-        me.categoria = Object.assign({},cat);
-        me.modalCategoria = true;
+        me.editedAreas = me.arrayAreas.indexOf(area);
+        me.areas = Object.assign({},area);
+        me.modalAreas = true;
       },
-      saveCategoria() {
+      /*saveAreas() {
         let me = this;
        
-        if(me.$refs.formCategoria.validate()) {
-          let accion = me.categoria.id == null ? "add" : "upd";
+        if(me.$refs.formAreas.validate()) {
+          let accion = me.areas.id == null ? "add" : "upd";
           me.loader = true;
           me.$http
-            .post(`${me.$url}/areas`, me.categoria)
+            .post(`${me.$url}/areas`, me.areas)
             .then(function(response) {
               me.verificarAccionDato(response.data, response.status, accion);
               me.cerrarModal();
@@ -209,23 +215,74 @@
               console.log(error);
               //409 conflicts Error (Proveedor ya existe en la base de datos)
               if(error.response.status == 409) {
-                me.setMessageToSnackBar("Categoria Ya Existente", true);
-                me.errorsNombre = ["Nombre de Categoria Existente"];
+                me.setMessageToSnackBar("Areas Ya Existente", true);
+                me.errorsNombre = ["Nombre de la Areas ya Existente"];
               }else {
                 me.$swal("Error", "Ocurrido Un Error Intente de Nuevovamente", "error");
               }
               me.loader = false;
             });
+            }else{
+            //para actualizar
+            me.$http.put('/areas/'+me.area.id, me.area)
+               .then(function(response) {
+                   console.log(response.data);
+                    me.verificarAccionDato(response.data, response.status, "upd");
+                    me.cerrarModal();
+            })
+          .catch(function(error) {
+            console.log(error);
+            me.loader = false;
+          });
         }
-      },
+      },*/
+      saveAreas() {
+      let me = this;
+      if (me.$refs.formAreas.validate()) {
+        let accion = me.areas.id == null ? "add" : "upd";
+        me.loader = true;
+        if(accion=="add"){
+           me.$http.post(`${me.$url}/areas`, me.areas)
+            .then(function(response) {
+            me.verificarAccionDato(response.data, response.status, accion);
+            me.cerrarModal();
+          })
+          .catch(function(error) {
+            console.log(error);
+            //409 Conflicts Error (Proveedor Ya Existente En la BD)
+            if (error.response.status == 409) {
+              me.setMessageToSnackBar("Area Ya Existe", true);
+              me.errorsNombre = ["Nombre De Area Existente"];
+            } else {
+              me.$swal("Error", "Ocurrio Un Error Intente Nuevamente", "error");
+            }
+            me.loader = false;
+          });
+        }else{
+            //para actualizar
+            me.$http.put(`${me.$url}/areas/`+ me.areas.id,me.areas)
+               .then(function(response) {
+                   console.log(response.data);
+                    me.verificarAccionDato(response.data, response.status, accion);
+                    me.cerrarModal();
+            })
+          .catch(function(error) {
+            console.log(error);
+            me.loader = false;
+          });
+        }
+      
+      }
+    },
       setMessageToSnackBar(msj, estado) {
         let me = this;
         me.snackbar = estado;
         me.msjSnackBar = msj;
       },
-      deleteCategoria(categoria) {
+      deleteAreas(areas) {
         let me = this;
-        me.editedCategoria = me.arrayCategorias.indexOf(categoria);
+        
+        me.editedAreas = me.arrayAreas.indexOf(areas);
          const Toast = me.$swal.mixin({
            toast: true,
            position: "bottom-end",
@@ -233,7 +290,7 @@
            timer: 3000
          });
          me.$swal({
-           title: "Eliminar Categoria?",
+           title: "Eliminar Area?",
            text: "Una vez realizada la accion no se podra revertir ",
            icon: "question",
            showCancelButton: true,
@@ -246,9 +303,11 @@
          }).then(result => {
            if (result.value) {
              me.loader = true;
+             console.log(areas);
              me.$http
-              .post(`${me.$url}/categorias/delete`,categoria)
+              .delete(`${me.$url}/areas/`+ areas.id)
               .then(function(response){
+                
                 me.verificarAccionDato(response.data, response.status, "del");
                 me.loader = false;
               })
@@ -256,7 +315,7 @@
                 if(error.response.status == 510){
                   Toast.fire({
                     icon: "error",
-                    title: "No se puede eliminar esta Categoria, tiene productos registrados"
+                    title: "No se puede eliminar esta Areas, tiene registrados"
                   });
                 }
                 me.loader = false;
@@ -264,7 +323,7 @@
            }
          });
       },
-      verificarAccionDato(categoria, statusCode, accion) {
+      verificarAccionDato(areas, statusCode, accion) {
         let me = this;
 
         const Toast = me.$swal.mixin({
@@ -277,20 +336,21 @@
         switch (accion) {
           case "add":
             //Agrego al array de categorias el objeto que devuelve el backend
-            me.arrayCategorias.unshift(categoria);
+            me.arrayAreas.unshift(areas);
             Toast.fire({
               icon: "success",
-              title: "Categoria Registrada con Exito"
+              title: "Areas Registrada con Exito"
             });
             me.loader = false;
             break;
 
           case "upd":
             //Actualizando al array de categorias el objeto que devuelve el Backend ya con los datos
-            Object.assign(me.arrayCategorias[me.editedCategoria], categoria);
+            //Object.assign(me.arrayAreas[me.editedAreas], areas);
+            this.fetchUsuario(); 
             Toast.fire({
               icon:"success",
-              title: "Categoria Actualizada con Exito"
+              title: "Areas Actualizada con Exito"
             });
             me.loader = false;
             break;
@@ -298,9 +358,9 @@
             if (statusCode == 200) {
               try{
                 //se elimina del array de categorias activos si todo esta bien en el backend
-                me.arrayCategorias.splice(me.editedCategoria, 1);
+                me.arrayAreas.splice(me.editedAreas, 1);
                 //se lanza mensaje final
-                me.$swal.fire("Eliminado", "Categoria Eliminada", "success");
+                me.$swal.fire("Eliminado", "Area Eliminada", "success");
               }catch (error) {
                 console.log(error);
               }
@@ -316,7 +376,7 @@
     },
     mounted() {
       let me = this;
-      me.fetchCategorias();     
+      me.fetchAreas();     
     },
   };
 </script>
