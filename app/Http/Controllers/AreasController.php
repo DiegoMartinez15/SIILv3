@@ -40,6 +40,7 @@ class AreasController extends Controller
         $area = new Areas();
         $area->nombre = $request->nombre;        
         $area->save();
+        
         return $area;        
     }
 

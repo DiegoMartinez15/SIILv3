@@ -8,13 +8,22 @@ import axios from 'axios';
 import url from "./config/config.js"
 
 
+
+
 Vue.use(VueSweetalert2);
+
 
 
 Vue.config.productionTip = false
 
 Vue.prototype.$url = url;
 Vue.prototype.$http = axios;
+//Vue.prototype.$http.defaults.headers.common ['Authorization'] = `Bearer ` + localStorage.getItem('token'); 
+const token = localStorage.getItem('token');
+
+if (token) {
+  Vue.prototype.$http.defaults.headers.common ['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+}
 
 new Vue({
   router,

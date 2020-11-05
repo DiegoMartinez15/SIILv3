@@ -1,5 +1,7 @@
 <template>
+
 <div class="content">
+  
   
   <div class="md-layout-item md-medium-size-100 md-xsmall-sixe-100 md-size-100">
     
@@ -34,10 +36,12 @@
       <!-- Templeate para form modal para agregar o actualizar categorias-->
     <template v-slot:top>
       <v-toolbar flat color="white">
+        
         <div class="flex-grow-1"></div>
         <v-dialog v-model="modalAreas" persistent max-width="700px">
           
           <template v-slot:activator="{ on }">
+            
            <v-btn elevation="10" color="blue darken-1" dark class="mb-2" v-on="on">
               Agregar&nbsp;&nbsp;
               <v-icon>library_add</v-icon>
@@ -161,12 +165,12 @@
         return this.areas.id == null ? "Guardar" : "Actualizar";
       },
     },
+    
     methods: {
-      fetchAreas() {
-        let me = this;
+      fetchAreas() {        
+        let me = this;          
         me.loader = true;
-        me.$http
-        .get(`${me.$url}/areas`)
+        me.$http.get(`${me.$url}/areas`)
         .then(function(response){
             console.log(response.data)
           me.arrayAreas = response.data;
@@ -261,10 +265,11 @@
         }else{
             //para actualizar
             me.$http.put(`${me.$url}/areas/`+ me.areas.id,me.areas)
-               .then(function(response) {
-                   console.log(response.data);
-                    me.verificarAccionDato(response.data, response.status, accion);
-                    me.cerrarModal();
+            .then(function(response) {
+              console.log(response.data);
+              console.log(response.status);
+              me.verificarAccionDato(response.data, response.status, "upd");
+               me.cerrarModal();
             })
           .catch(function(error) {
             console.log(error);
@@ -347,7 +352,7 @@
           case "upd":
             //Actualizando al array de categorias el objeto que devuelve el Backend ya con los datos
             //Object.assign(me.arrayAreas[me.editedAreas], areas);
-            this.fetchUsuario(); 
+            this.fetchAreas(); 
             Toast.fire({
               icon:"success",
               title: "Areas Actualizada con Exito"
@@ -372,11 +377,18 @@
             }
             break;
         }
-      }
+      },
+
     },
     mounted() {
-      let me = this;
-      me.fetchAreas();     
+      let x =localStorage.getItem('token')
+      if(x != null){
+        this.fetchAreas(); 
+      }else{
+         
+         this.$router.push('/login')
+      }
+       
     },
   };
 </script>

@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 trait RegistersUsers
 {
@@ -28,9 +29,20 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
+        /*$usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = $request->password;
+        $usuario->estado = 'A';
+        $usuario->idtipo_usuario = 1;*/
         $this->validator($request->all())->validate();
+      
 
-        event(new Registered($user = $this->create($request->all())));
+        
+        event(new Registered($user = $this->create(
+            
+            $request->all()
+        )));
 
         $this->guard()->login($user);
 
