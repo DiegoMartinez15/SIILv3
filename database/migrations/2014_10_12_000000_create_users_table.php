@@ -20,12 +20,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('estado',1);
-            
+            $table->integer('idform_accept')->nullable()->unsigned();
+            $table->foreign('idform_accept')->references('id')->on('form_accept');
             $table->integer('idtipo_usuario')->unsigned();
             $table->foreign('idtipo_usuario')->references('id')->on('tipos_usuarios');
-            $table->integer('idform_accept')->unsigned();
-            $table->foreign('idform_accept')->references('id')->on('form_accept');
+            $table->integer('idaspirante')->unsigned();
+            $table->foreign('idaspirante')->references('id')->on('aspirantes');
             $table->rememberToken();
+            
             $table->timestamps();
         });
     }

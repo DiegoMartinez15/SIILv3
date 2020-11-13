@@ -49,6 +49,7 @@ class CreateEgresadosTable extends Migration
             $table->string('medio',25);
             $table->string('aceptacion',10);
             $table->string('observaciones',5);
+            
             $table->timestamps();
         });
     }

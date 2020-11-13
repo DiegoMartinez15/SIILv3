@@ -20,6 +20,7 @@ class CreateUsuariosTable extends Migration
             $table->string('estado',1);
             $table->integer('idtipo_usuario')->unsigned();
             $table->foreign('idtipo_usuario')->references('id')->on('tipos_usuarios');
+            
             $table->timestamps();
         });
     }

@@ -122,9 +122,11 @@
             .post(`${me.$url}/login`, me.login)
             .then(function(response){
               if(response.status == 200){
+                console.log(response.data);
                 let x = response.data.token;
                 me.$store.state.token = localStorage.setItem('token',x);
                 let user =response.data.user 
+                
                 let estado = user.estado;
                  switch (estado) {
                     case "A":

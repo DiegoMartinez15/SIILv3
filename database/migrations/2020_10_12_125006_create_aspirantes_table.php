@@ -26,10 +26,12 @@ class CreateAspirantesTable extends Migration
             $table->string('fecha_registro',10);
             $table->string('password',100);
             $table->string('tipo_ingreso',5);
+           
             $table->integer('idcarrera')->unsigned();
             $table->foreign('idcarrera')->references('id')->on('carreras');
             $table->integer('idbeca')->unsigned();
             $table->foreign('idbeca')->references('id')->on('becas');
+            
             $table->timestamps();
         });
     }

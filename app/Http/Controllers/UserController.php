@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Aspirante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,59 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-        $user = User::whereEmail($request->email)->first();
+        //$user = Aspirante::whereCodigo($request->email)->first();
+        $user = Aspirante::where("codigo","=",$request->email)->first();
+        
+        if($user != null && $request->password == $user->password){/* AQUI HAY PROBLEMA POR QUE NO SE COMO CIFRAN LA CLAVE */
+            $tableUser = User::where("idaspirante","=",$user->id)->first();
+            if($tableUser == null){
+                $input = $user->id;
+                User::create([
+                    'estado' => 'N',
+                    'idform_accept'=> null,
+                    'idtipo_usuario' => 2,
+                    'idaspirante' => $input, 
+                ]);
+                $tableUser = User::where("idaspirante","=",$user->id)->first();
+                if($tableUser != null){
+                    $token = $tableUser->createToken('SIILv3')->accessToken;
+                    return response()->json([
+                        'res' => true,
+                        'message' =>"Todo bien hasta ahorita primer if de creacion",
+                        'user'=>$tableUser,
+                        'token'=>$token
+                    ],200);
+                }else{
+                    return response()->json([
+                        'res' => true,
+                        'message' =>"Algp esta mal donde hace el token por primera ves",
+                       
+                    ],200);
+                }
+            }else{
+                $token = $tableUser->createToken('SIILv3')->accessToken;
+                return response()->json([
+                    'res' => true,
+                    'message' =>"Todo bien hasta ahorita ya ingreso y esta es la segunda vez if de creacion",
+                    'user'=>$tableUser,
+                    'token'=>$token
+                ],200);
+            }
+        }else{
+            return response()->json([
+                'res' => true,
+                'message' =>"El codigo o contraseña son incorrectos"
+            ],200);
+        }
+
+        return response()->json([
+            'res' => true,
+            'message' =>$user
+        ],200);
+
+
+
+        /*$user = User::whereEmail($request->email)->first();
         if(!is_null($user) && Hash::check($request->password, $user->password)){
             $token = $user->createToken('SIILv3')->accessToken;
             return response()->json([
@@ -29,11 +82,8 @@ class UserController extends Controller
                 'user' => $user
             ],200);
         }else{
-            return response()->json([
-                'res' => false,
-                'message' =>"Lo siento no tienes permiso para ingresar al sitio"
-            ],200);
-        }
+            
+        }*/
     }
     public function logout(){
         $user = auth()->user();

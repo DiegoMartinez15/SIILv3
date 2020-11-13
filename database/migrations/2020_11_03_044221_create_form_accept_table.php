@@ -16,9 +16,9 @@ class CreateFormAcceptTable extends Migration
         Schema::create('form_accept', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('acepto',2);
-            $table->string('porque',100);
+            $table->string('porque',100)->nullable();
             $table->timestamps();
-            $table->engine = 'InnoDB';
+            
         });
     }
 

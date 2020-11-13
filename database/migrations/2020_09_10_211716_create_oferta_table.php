@@ -24,6 +24,7 @@ class CreateOfertaTable extends Migration
             $table->integer('idcordinador')->unsigned();
             $table->foreign('idcordinador')->references('id')->on('coordinadores');
             
+            
             $table->timestamps();
         });
     }

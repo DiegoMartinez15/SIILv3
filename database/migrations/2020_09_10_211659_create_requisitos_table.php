@@ -27,6 +27,7 @@ class CreateRequisitosTable extends Migration
             $table->integer('idempresa')->unsigned();
             $table->foreign('idempresa')->references('id')->on('empresas');
             
+            
             $table->timestamps();
         });
     }

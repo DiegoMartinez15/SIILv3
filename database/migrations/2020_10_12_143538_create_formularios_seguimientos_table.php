@@ -32,6 +32,7 @@ class CreateFormulariosSeguimientosTable extends Migration
             $table->string('tel_empresa',9);
             $table->string('estatus',10);
             $table->string('fecha_monitoreo',50);
+            
             $table->timestamps();
         });
     }

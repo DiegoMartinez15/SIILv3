@@ -17,6 +17,7 @@ class CreateSegundosIdiomasTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre',50);
             
+            
             $table->timestamps();
         });
     }

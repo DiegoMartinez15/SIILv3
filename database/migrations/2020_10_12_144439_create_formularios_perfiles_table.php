@@ -55,6 +55,7 @@ class CreateFormulariosPerfilesTable extends Migration
             $table->string('disponibilidad_horaria',20);
             $table->string('recomendacion_derivacion',75);
             $table->string('otra_observacion',200);
+            
             $table->timestamps();
         });
     }

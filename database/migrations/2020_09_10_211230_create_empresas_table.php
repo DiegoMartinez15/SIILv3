@@ -25,6 +25,7 @@ class CreateEmpresasTable extends Migration
 
             $table->integer('idcoordinador')->unsigned();
             $table->foreign('idcoordinador')->references('id')->on('coordinadores');
+            
 
           
             $table->timestamps();
