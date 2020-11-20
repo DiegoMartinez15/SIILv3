@@ -130,6 +130,8 @@
                 let user = response.data.user;
                 let dataU = response.data.dataUser; 
                 let estado = user.estado;
+                 let user =response.data.user 
+                me.$store.commmit('setid',user.id);
 
                  switch (estado) {
                     case "A":

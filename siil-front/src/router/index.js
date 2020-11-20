@@ -7,7 +7,7 @@ import Usuarios from '../components/Usuarios.vue'
 import Empresas from '../components/Empresas.vue'
 import Login from '../components/Login.vue'
 import FormAccept from '../components/FormAccept.vue'
-
+import FormPerfil from '../components/FormularioPerfil.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +36,11 @@ const routes = [
         component: Areas,
         meta: { requiresAuth: true }
       } ,
+      {
+        path: '/formulario_perfil',
+        name: 'formulario',
+        component: FormPerfil,
+    }
      
     ]
   },
@@ -63,9 +68,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 router.beforeEach((to, from, next) => {

@@ -11,7 +11,8 @@ export default new Vuex.Store({
   state: {
     token: '',
     name:'',
-    role:''
+    role:'',
+    id:''
    
   },
   getters:{
@@ -29,9 +30,14 @@ export default new Vuex.Store({
         state.role = payload;
         return
       }
-    }
+    },
+    setid(state, payload) {
+      if (payload != null) {
+          state.id = payload;
+          return
+      }
 
-    
+    }
 
   },
   actions:{

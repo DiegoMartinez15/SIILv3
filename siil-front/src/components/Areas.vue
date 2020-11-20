@@ -243,7 +243,7 @@
             })
           .catch(function(error) {
             console.log(error);
-            me.loader = false;
+            me.loader = false; 
           });
         }
       },*/
