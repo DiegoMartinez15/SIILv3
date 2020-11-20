@@ -31,6 +31,8 @@ Route::group(['middleware'=>'auth:api'],function(){
 
     Route::post('formfirst', 'FormAcceptController@formAccept');
     Route::ApiResource("areas","AreasController");
+    Route::ApiResource("usuarios","UsuarioController");
+    Route::ApiResource("empresas","EmpresaController");
     Route::get('logout', 'UserController@logout');
    
     

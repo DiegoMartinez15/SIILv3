@@ -1,15 +1,30 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire"  >
+    <!--:src="'/img/login.jpg'"   Esta es la imagen del sidebar   -->
     <v-navigation-drawer
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
-      :src="'/img/login.jpg'"
+       permanent
+        expand-on-hover
       app
     >
+    <div class="background blue-grey darken-3 ">
+
+     <v-list>
+          <v-list-item class="px-2">
+        <v-list-item-avatar
+        size="45">
+          <v-img :src="'/itcha/escudo.png'"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-title class="tittle white--text">{{$store.state.name}}</v-list-item-title>
+      </v-list-item>
+        </v-list>
+        <v-divider></v-divider>
+    </div>
   
       <v-list dense >
       <template>
-          <v-list-item link :to="{path:'/login'}" style="color:white">
+          <v-list-item class="mt-2 mb-2" link :to="{path:'/'}">
               <v-list-item-action>
                 <v-icon>home</v-icon>
               </v-list-item-action>
@@ -18,97 +33,134 @@
               </v-list-item-content>
             </v-list-item>
       </template>
-      <!-- Menu desplegable-->
-      <v-list-group>
-        <template slot="activator">
+      <v-divider></v-divider>
+      <!-- Menu desplegable  v-show="admin == true" -->
+      <v-list-group v-show="egresado == true">
+        <template  slot="activator">
           
               <v-list-item-action>
-                <v-icon>line_weight</v-icon>
+                <v-icon>mdi mdi-account</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Cat&aacute;logos</v-list-item-title>
+                <v-list-item-title>Menu Egresado</v-list-item-title>
               </v-list-item-content>
           
         </template>
         <!--Menu de categoria-->
 
-        <v-list-item link :to="{path:'/areas'}">
+        <v-list-item link :to="{path:'#'}">
+              <v-list-item-action>
+                <v-icon>mdi mdi-worker</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Ofertas de Empleo</v-list-item-title>
+              </v-list-item-content>
+         </v-list-item>  
+            <!--MENU DE MARCAS-->
+                 
+            <!--Menu de Producto--> 
+            <v-list-item link :to="{path: '#'}">
+              <v-list-item-action>
+                <v-icon>mdi mdi-file-pdf</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Descargar Formularios</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+        </v-list-group> 
+             
+
+        <v-list-group v-show="show == true"  >
+        <template slot="activator" >
+          
+              <v-list-item-action>
+                <v-icon>admin_panel_settings</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Menu administrador</v-list-item-title>
+              </v-list-item-content>
+          
+        </template>
+        <!--Menu de administrador-->
+      
+        <v-list-item link :to="{path:'/#'}">
+              <v-list-item-action>
+                <v-icon>mdi mdi-bookmark-plus</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Añadir Ofertas</v-list-item-title>
+              </v-list-item-content>
+         </v-list-item>  
+            <!--MENU DE MARCAS-->
+            <v-list-item link :to="{path:'/empresas'}"><!--ESTA FORMA FUNCIONA BIEN ASI SE DECLARAN LAS RUTAS-->
+              <v-list-item-action>
+                <v-icon>apartment</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Empresas</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>      
+            <!--Menu de Producto--> 
+            <v-list-item link :to="{path: '/#'}">
+              <v-list-item-action>
+                <v-icon>school</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Egresados</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+
+              <v-list-item link :to="{path:'/areas'}">
               <v-list-item-action>
                 <v-icon>category</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>Areas</v-list-item-title>
               </v-list-item-content>
-         </v-list-item>  
-            <!--MENU DE MARCAS-->
-            <v-list-item link :to="{path:'/usuarios'}"><!--ESTA FORMA FUNCIONA BIEN ASI SE DECLARAN LAS RUTAS-->
+            </v-list-item> 
+
+            <v-list-item link :to="{path:'/#'}">
               <v-list-item-action>
-                <v-icon>speaker_phone</v-icon>
+                <v-icon>file_copy</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Usuarios</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>      
-            <!--Menu de Producto--> 
-            <v-list-item link :to="{name: 'productos'}">
-              <v-list-item-action>
-                <v-icon>laptop</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Productos</v-list-item-title>
+                <v-list-item-title>Reportes</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
-      </v-list-group>
-      <!--Opciones de pedido-->
-            <template> <!--opcion de pedidos -->
-                <v-list-item link :to="{name:'pedidos.listado.recibidos'}"> <!-- MENU DE productos-->
-                  <v-list-item-action>
-                    <v-icon>shopping_cart</v-icon>
-                  </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>Pedidos</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template> 
+            
 
+
+      </v-list-group>
 
 
         <!--menu para seguridad-->
-        <v-list-group>
+        <v-list-group v-show="show == true">
           <template slot="activator">
                 <v-list-item-action>
-                    <v-icon>settings</v-icon>
+                    <v-icon>supervised_user_circle</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
                   <v-list-item-title>Gestion de Usuarios</v-list-item-title>
                 </v-list-item-content>
           </template>
-          <v-list-item link ><!--menu de roles-->
+            <v-list-item link :to="{path:'/usuarios'}">
               <v-list-item-action>
-                <v-icon>person</v-icon>
+                <v-icon>verified_user</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Roles</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link> <!-- MENU DE MARCAS-->
-              <v-list-item-action>
-                <v-icon>group</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Usuarios</v-list-item-title>
+                <v-list-item-title>administradores</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
         </v-list-group>
         
         <!--Menu de Repostes-->
-        <v-list-group> <!--menu desplegable para reporte-->
+        <v-list-group v-show ="egresado == true"> <!--menu desplegable para reporte-->
           <template slot="activator">
                 <v-list-item-action>
-                    <v-icon>insert_chart</v-icon>
+                    <v-icon>library_books</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                  <v-list-item-title>Reportes</v-list-item-title>
+                  <v-list-item-title>Formularios</v-list-item-title>
                 </v-list-item-content>
           </template>
           <v-list-item link ><!--menu de roles-->
@@ -116,7 +168,7 @@
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Pedidos por periodo</v-list-item-title>
+              <v-list-item-title>Formulario 1</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item link> <!-- MENU DE pedido despachados-->
@@ -124,7 +176,7 @@
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Pedidos despachados</v-list-item-title>
+              <v-list-item-title>Formularios 2</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item link> <!-- MENU DE pedido anuilados-->
@@ -132,10 +184,63 @@
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Pedidos anulados</v-list-item-title>
+              <v-list-item-title>Formularios 3</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+
+        <v-list-group v-show="show == true">
+        <template slot="activator">
+          
+              <v-list-item-action>
+                <v-icon>leaderboard</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Estadisticas</v-list-item-title>
+              </v-list-item-content>
+          
+        </template>
+        <!--Menu de categoria-->
+
+        <v-list-item link :to="{path:'#'}">
+              <v-list-item-action>
+                <v-icon>multiline_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Estadistica 1</v-list-item-title>
+              </v-list-item-content>
+         </v-list-item>  
+            <!--MENU DE MARCAS-->
+            <v-list-item link :to="{path:'#'}"><!--ESTA FORMA FUNCIONA BIEN ASI SE DECLARAN LAS RUTAS-->
+              <v-list-item-action>
+                <v-icon>trending_up</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Estadistica 2</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>      
+            <!--Menu de Producto--> 
+            <v-list-item link :to="{path: '#'}">
+              <v-list-item-action>
+                <v-icon>bubble_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Estadistica 3</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+        </v-list-group>
+
+<v-divider></v-divider>
+        <template>
+          <v-list-item class="mt-2 mb-2" link :to="{path:'/'}">
+              <v-list-item-action>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title @click="logout()">Cerrar Session</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+      </template>
       </v-list>
     
     </v-navigation-drawer>
@@ -146,11 +251,15 @@
       color="blue darken-3"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer" ></v-app-bar-nav-icon>-->
+      
+    
+        
       <v-toolbar-title
         style="width: 600px"
         class="ml-0 pl-4"
       >
+      
         <span class="hidden-sm-and-down">Sistema de Intermediacion Laboral</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -166,13 +275,15 @@
       >
         <v-layout>
           <v-flex>
+            
              <!-- Componentes Poner-->
               <router-view/>
           </v-flex>
         </v-layout>       
       </v-container>
     </v-main>
-    <v-footer color="indigo" app>
+    <v-footer color="blue darken-3"
+      dark app>
       <span class="white--text">&copy; {{new Date().getFullYear()}} - Derechos Reservados - ITCHA AGAPE</span>
     </v-footer>
   </v-app>
@@ -180,23 +291,31 @@
 
 <script>
 
+import { mapState } from "vuex";
+
 
 export default {
   props: {
       source: String,
     },
   name: 'Home',
-
+ 
 
   components: {
   },
 
   data: () => ({
     drawer: null,
+    admin: false,
+     show: false,
+     egresado: false,
+  
+
   }),
   methods:{
+        
      logout(){
-             let x = localStorage.getItem('token');
+             let x = sessionStorage.getItem('tokenS');
             let me = this,
             header = {
               headers: {
@@ -207,7 +326,8 @@ export default {
              me.$http.get(`${me.$url}/logout`,header)
             .then(function(response){ 
                if(response.status==200){ 
-                  localStorage.clear();           
+                  localStorage.clear(); 
+                  sessionStorage.clear();
                   alert("Adios");
                   me.$router.push('/login')
                 console.log(response.data);
@@ -219,8 +339,26 @@ export default {
           },
 
   },
+  computed:{
+    count(){
+      return this.$store.state.role;
+    },
+      ...mapState(['name'])
+    },
   mounted(){
-    let x =localStorage.getItem('token')
+   
+    
+  
+  this.admin = this.$store.state.role;
+  if(this.admin == 1 ){
+    this.show = true;
+    this.egresado = false;
+  }else{
+    this.show = false;
+    this.egresado = true;
+  }
+  
+    let x =sessionStorage.getItem('tokenS')
       if(x != null){
         console.log("Si tienes acceso");
       }else{

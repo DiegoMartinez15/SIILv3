@@ -100,6 +100,7 @@
          },
       };
     },
+    
     methods: {
       //Metodo registro de usuarios con token listo
         fetchUsuarios() {
@@ -115,7 +116,7 @@
               console.log(error);
             });
           },
-     //hoy esta pulido
+     //hoy esta pulido estaba xd :(
         loginUsuario(){
         let me = this;
             me.$http
@@ -124,17 +125,24 @@
               if(response.status == 200){
                 console.log(response.data);
                 let x = response.data.token;
-                me.$store.state.token = localStorage.setItem('token',x);
-                let user =response.data.user 
-                
+                sessionStorage.setItem('tokenS',x)
+               localStorage.setItem('token',x);
+                let user = response.data.user;
+                let dataU = response.data.dataUser; 
                 let estado = user.estado;
+
                  switch (estado) {
                     case "A":
                       me.$router.push('/');
-                     alert("Bienvenido al sistema  : !!"+ user.name +" !!");
+                      me.$store.commit('add',dataU.nombres);
+                      me.$store.commit('permission',user.idtipo_usuario);
+                      console.log(me.$store.state.role);
+                     alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
                       break;
                     case "N":
                       me.$router.push('/accept');
+                        me.$store.commit('add',dataU.nombres);
+                        me.$store.commit('permission',user.idtipo_usuario);
                          alert("Llena el proceso para continuar");
                       break;
                     case "I":
@@ -150,11 +158,12 @@
           },
 
            logout(){
-             let x = localStorage.getItem('token');
+            //let x = localStorage.getItem('token');
+             let y = sessionStorage.getItem('tokenS')
             let me = this,
             header = {
               headers: {
-                "Authorization": "Bearer "+ x,
+                "Authorization": "Bearer "+ y,
               },
             };
              me.$http.get(`${me.$url}/logout`,header)

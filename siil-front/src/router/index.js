@@ -1,13 +1,16 @@
 import Vue from 'vue'
+import store from '../store'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Areas from '../components/Areas.vue'
 import Usuarios from '../components/Usuarios.vue'
+import Empresas from '../components/Empresas.vue'
 import Login from '../components/Login.vue'
 import FormAccept from '../components/FormAccept.vue'
 
 
 Vue.use(VueRouter)
+
 
 const routes = [
   {
@@ -17,14 +20,23 @@ const routes = [
     children: [
       {
         path: '/usuarios',
-        name: 'home1',
+        name: 'usuarios',
         component: Usuarios,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/empresas',
+        name: 'empresas',
+        component: Empresas,
+        meta: { requiresAuth: true }
       },
       {
         path: '/areas',
-        name: 'home2',
+        name: 'areas',
         component: Areas,
-      } 
+        meta: { requiresAuth: true }
+      } ,
+     
     ]
   },
   {
@@ -55,5 +67,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(route => route.meta.requiresAuth)){
+    if(store.state.role == 1 && sessionStorage.getItem('tokenS') != null){
+      next()
+    }else{
+      next('/')
+    }
+  }else{
+    next()
+  }
+});
+
+
 
 export default router

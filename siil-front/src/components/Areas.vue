@@ -167,10 +167,17 @@
     },
     
     methods: {
-      fetchAreas() {        
-        let me = this;          
+      fetchAreas() {  
+        let token = sessionStorage.getItem('tokenS');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
+               
         me.loader = true;
-        me.$http.get(`${me.$url}/areas`)
+        me.$http.get(`${me.$url}/areas`,header)
         .then(function(response){
             console.log(response.data)
           me.arrayAreas = response.data;
@@ -308,7 +315,6 @@
          }).then(result => {
            if (result.value) {
              me.loader = true;
-             console.log(areas);
              me.$http
               .delete(`${me.$url}/areas/`+ areas.id)
               .then(function(response){
@@ -381,9 +387,10 @@
 
     },
     mounted() {
-      let x =localStorage.getItem('token')
+       
+      let x = sessionStorage.getItem('tokenS');
       if(x != null){
-        this.fetchAreas(); 
+        this.fetchAreas();
       }else{
          
          this.$router.push('/login')

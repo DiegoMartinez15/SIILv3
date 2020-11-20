@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Usuario;
-
+use App\User;
+use Illuminate\Support\Facades\Hash;
 class UsuarioController extends Controller
 {
     /**
@@ -14,10 +15,18 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $usuario =Usuario::join('tipos_usuarios','usuarios.idtipo_usuario','=','tipos_usuarios.id')
-       ->select('usuarios.id','usuarios.nombre','usuarios.passwd','usuarios.estado','usuarios.idtipo_usuario',
-       'tipos_usuarios.nombre as idtipo_usuario')->where('usuarios.estado','=','A')->get();
 
+
+    //$usuario =Usuario::orderBy('id','DESC')->get();
+    
+
+    $usuario =Usuario::join('users','usuarios.idusers','=','users.id')
+    ->join('tipos_usuarios', 'users.idtipo_usuario', '=', 'tipos_usuarios.id')
+    ->select('usuarios.id','usuarios.nombres','users.estado as idusers','tipos_usuarios.nombre as idtipo_usuario')->get();
+    
+       /* $usuario =Usuario::join('tipos_usuarios','usuarios.idtipo_usuario','=','tipos_usuarios.id')
+       ->select('usuarios.id','usuarios.nombre','usuarios.passwd','usuarios.estado','usuarios.idtipo_usuario',
+       'tipos_usuarios.nombre as idtipo_usuario')->where('usuarios.estado','=','A')->get();*/
        return $usuario;
         //$usuario =Usuario::orderBy('id','DESC')->get();
         //return $usuario;
@@ -33,10 +42,8 @@ class UsuarioController extends Controller
     public function store(Request $request, Usuario $usuarios)
     {
         $usuario = new Usuario();
-        $usuario->nombre = $request->nombre;        
-        $usuario->passwd = $request->passwd; 
-        $usuario->estado ='A';
-        $usuario->idtipo_usuario = 2;
+        $usuario->nombres = $request->email;        
+        $usuario->password = Hash::make($request->password); 
         $usuario->save();
         return $usuario;
        
@@ -52,6 +59,11 @@ class UsuarioController extends Controller
         $usuario->save();
         
     }
+    /*public function delete($id)
+    {
+        $area =Usuario::findOrfail($id);
+        $area->delete();   
+    }*/
 
     public function destroy($id)
     {

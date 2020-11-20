@@ -62,25 +62,27 @@
                 </v-form>-->
                 <v-form ref="formUsuarios" v-model="validForm" :lazy-validation="true">
                         <v-text-field
-                          append-icon="mdi-folder-outline"
-                          v-model="usuarios.nombre"
+                          prepend-icon="account_box"
+                          v-model="usuarios.email"
                           @keyup="errorsNombre = []"
-                          :rules="[v => !!v || 'Correo Es Requerido']"
-                          label="Correo"
+                          :rules="[v => !!v || 'Campo Requerido']"
+                          label="Nombres"
                           required
                           :error-messages="errorsNombre"
                         ></v-text-field>
 
-                        <v-text-field
-                          append-icon="mdi-folder-outline"
-                          v-model="usuarios.passwd"
-                          @keyup="errorsNombre = []"
-                          :rules="[v => !!v || 'La clave Es Requerida']"
-                          label="Contraseña"
+
+                        <v-text-field 
                           required
+                          label="Contraseña" 
+                          :type="showPassword ? 'text' : 'password'"
+                          v-model="usuarios.password"
+                          @keyup="errorsNombre = []"
+                          prepend-icon="mdi-lock"
                           :error-messages="errorsNombre"
-                        ></v-text-field>
-                        
+                          :rules="[v => !!v || 'La Contraseña es requerida']"
+                          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                          @click:append="showPassword = !showPassword"/>
                       </v-form>
               </v-container>
             </v-card-text>
@@ -103,7 +105,7 @@
       <!--Template para la columna de acciones -->
       <template v-slot:item.action="{item}">
         <v-tooltip top>
-          <template v-slot:activator="{on}">
+         <!-- <template v-slot:activator="{on}">
             <v-btn
               color="success"            
               elevation="8"
@@ -116,7 +118,7 @@
             >
             <v-icon>create</v-icon>
             </v-btn>
-          </template>
+          </template>-->
           <span>Actualizar Datos</span>
         </v-tooltip>
         &nbsp;&nbsp;
@@ -154,19 +156,21 @@
     data () {
       return {
         arrayUsuarios:[],
+        
         hTBUsuarios:[
-          {text:"Correo", value:"nombre" , class:'blue-grey lighten-4 '},
-          {text:"Estado", value:"estado" , class:'blue-grey lighten-4 '},
-          {text:"Rol", value:"idtipo_usuario" , class:'blue-grey lighten-4 '},
+          {text:"Nombres", value:"nombres" , class:'blue-grey lighten-4 '},
+          {text:"Estado", value:"idusers" , class:'blue-grey lighten-4 '},
+          {text:"Administrador", value:'idtipo_usuario' , class:'blue-grey lighten-4 '},
           {text:"Acciones", value:"action",sortable:false,aling:"center",class:'blue-grey lighten-4'},
         ],
+        showPassword: false,
         loader:false,
         searchUsuarios:"",
         modalUsuarios:false,
         usuarios:{
           id:null,
-          nombre:null,
-          passwd:null,
+          email:null,
+          password:null,
          
           
         },
@@ -190,12 +194,17 @@
     },
     methods: {
       fetchUsuarios() {
-        let me = this;
+        let token = sessionStorage.getItem('tokenS');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
         me.loader = true;
         me.$http
-        .get(`${me.$url}/usuarios`)
+        .get(`${me.$url}/usuarios`,header)
         .then(function(response){
-            console.log(response.data)
           me.arrayUsuarios = response.data;
           me.loader = false;
         })
