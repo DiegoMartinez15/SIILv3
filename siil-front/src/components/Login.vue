@@ -126,7 +126,9 @@
                 let x = response.data.token;
                 me.$store.state.token = localStorage.setItem('token',x);
                 let user =response.data.user 
-                
+                me.$store.commmit('setid',user.id);
+                //me.$store.state.id = user.id;
+                //console.log( me.$store.state.id);
                 let estado = user.estado;
                  switch (estado) {
                     case "A":

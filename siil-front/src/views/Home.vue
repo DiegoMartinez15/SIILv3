@@ -50,12 +50,12 @@
               </v-list-item-content>
             </v-list-item>      
             <!--Menu de Producto--> 
-            <v-list-item link :to="{name: 'productos'}">
+            <v-list-item link :to="{path:'/formulario_perfil'}">
               <v-list-item-action>
                 <v-icon>laptop</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Productos</v-list-item-title>
+                <v-list-item-title>Formulario Registro Perfil</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
       </v-list-group>

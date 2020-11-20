@@ -7,19 +7,25 @@ Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-  state: {
-    token: ''
-   
-  },
-  getters:{
-      
-  },
-  mutations: {
-  },
-  actions:{
-  },
-    
-  modules: {
-   
-  }
+    state: {
+        token: '',
+        id: ''
+
+    },
+    getters: {
+
+    },
+    mutations: {
+        setid(state, payload) {
+            if (payload != null) {
+                state.id = payload;
+                return
+            }
+        }
+    },
+    actions: {},
+
+    modules: {
+
+    }
 })
