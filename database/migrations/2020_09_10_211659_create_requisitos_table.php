@@ -22,10 +22,11 @@ class CreateRequisitosTable extends Migration
             $table->string('horario',100);
             $table->string('descripcion',100);
             $table->string('licencia',100);
+            $table->string('ambiente',100);
+            $table->string('prestaciones',100);
            
-
-            $table->integer('idempresa')->unsigned();
-            $table->foreign('idempresa')->references('id')->on('empresas');
+            $table->integer('idoferta')->unsigned();
+            $table->foreign('idoferta')->references('id')->on('empresas');
             
             
             $table->timestamps();

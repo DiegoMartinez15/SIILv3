@@ -40,6 +40,9 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::ApiResource("estadocivil","EstadoCivilController"); 
     Route::ApiResource("perfil","FormularioPerfilController");  
     Route::ApiResource("enfermedad","EnfermadadCronicaController");  
+    Route::ApiResource("ofertas","OfertaController");
+    Route::ApiResource("requisitos","RequisitoController");
+    Route::get('/ofertasr', 'OfertaController@find');
    
     
 });

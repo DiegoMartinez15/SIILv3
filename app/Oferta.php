@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Oferta extends Model
 {
     protected $table = "oferta";
-    protected $fillable=['cargo','idempresa','idrequisio'];
+    protected $fillable=['cargo','salario','idempresa','idrequisito','img'];
 
     //por la realacion inversa con empresas
     public function empresas(){

@@ -269,7 +269,7 @@ export default {
 <style scoped>
 
 .img{
-    background-image: url('/img/11.jpg');
+    background-image: url('/itcha/accept1.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     

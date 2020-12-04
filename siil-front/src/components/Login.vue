@@ -11,10 +11,14 @@
     </v-app-bar>-->
 
     <v-main id="body1">
-      <v-card width="440" class="mx-auto  mt-16  pl-5 pr-5 ">
+      <v-card width="400" class="mx-auto  mt-16  pl-5 pr-5 ">
         <v-card-title class="justify-center pt-12 "  id="title">
           Inicia Sesión
+
+           
         </v-card-title>
+        <v-img 
+              id="id" :src="'/itcha/escudo.png'"></v-img>
         <v-card-text>
           <v-form ref="formUsuarios">
           <v-text-field
@@ -123,28 +127,38 @@
             .post(`${me.$url}/login`, me.login)
             .then(function(response){
               if(response.status == 200){
-                console.log(response.data);
-                let x = response.data.token;
+                let msg = "Algo Salio Mal";
+                if(response.data.message == msg ){
+                   me.$swal({
+                  title: "Error!",
+                  text: "Tus credenciales estan mal!",
+                  icon: "error",
+                  button: "Ok!",
+                });
+
+                }else{
+                
+               
+                    let x = response.data.token;
                 sessionStorage.setItem('tokenS',x)
-               localStorage.setItem('token',x);
+                localStorage.setItem('token',x);
                 let user = response.data.user;
                 let dataU = response.data.dataUser; 
                 let estado = user.estado;
-                 let user =response.data.user 
-                me.$store.commmit('setid',user.id);
 
                  switch (estado) {
                     case "A":
-                      me.$router.push('/');
+                      me.$router.push('/ofertas');
                       me.$store.commit('add',dataU.nombres);
                       me.$store.commit('permission',user.idtipo_usuario);
-                      console.log(me.$store.state.role);
-                     alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
+                      me.$store.commit('setid',user.id);
+                     //alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
                       break;
                     case "N":
                       me.$router.push('/accept');
                         me.$store.commit('add',dataU.nombres);
                         me.$store.commit('permission',user.idtipo_usuario);
+                        me.$store.commit('setid',user.id);
                          alert("Llena el proceso para continuar");
                       break;
                     case "I":
@@ -152,6 +166,9 @@
                       alert("Lo siento no Acceptastes el proceso");
                       break;
                   }
+                }
+
+               
               }
             })
             .catch(function(error){
@@ -201,5 +218,12 @@
   font-size: 30px;
   text-align: center;
   
+}
+#id{
+  display:block;
+  margin: 0 auto;
+  width: 140px;
+  height: 180px;
+ 
 }
 </style>

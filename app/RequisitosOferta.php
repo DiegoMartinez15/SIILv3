@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class RequisitosOferta extends Model
 {
     protected $table = "requisitos";
-    protected $fillable=['edad','genero','nivel_academico','experiencia','horario','descripcion','licencia','idempresa'];
+    protected $fillable=['edad','genero','nivel_academico','experiencia','horario',
+    'conocimiento','licencia','ambiente','prestaciones','idoferta'];
 
     public function ofertas(){
         return $this->hasMany('App/Oferta');

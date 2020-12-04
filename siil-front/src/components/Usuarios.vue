@@ -101,11 +101,11 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-</template>
+  </template>
       <!--Template para la columna de acciones -->
       <template v-slot:item.action="{item}">
-        <v-tooltip top>
-         <!-- <template v-slot:activator="{on}">
+        <!--<v-tooltip top>
+         <template v-slot:activator="{on}">
             <v-btn
               color="success"            
               elevation="8"
@@ -118,9 +118,9 @@
             >
             <v-icon>create</v-icon>
             </v-btn>
-          </template>-->
+          </template>
           <span>Actualizar Datos</span>
-        </v-tooltip>
+        </v-tooltip>-->
         &nbsp;&nbsp;
         <v-tooltip top>
           <template v-slot:activator="{on}">
@@ -229,10 +229,10 @@
         me.errorsNombre = [];
         me.$refs.formUsuarios.resetValidation();
       },
-      showModalEditar(area) {
+      showModalEditar(usuarios) {
         let me = this;
-        me.editedUsuarios = me.arrayUsuarios.indexOf(area);
-        me.usuarios = Object.assign({},area);
+        me.editedUsuarios = me.arrayUsuarios.indexOf(usuarios);
+        me.usuarios = Object.assign({},usuarios);
         me.modalUsuarios = true;
       },
       saveUsuario() {

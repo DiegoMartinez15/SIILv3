@@ -16,15 +16,18 @@ class RequisitoController extends Controller
      */
 
 
-    public function obtenerform(Request $request)
+    public function index(Request $request)
     {   
 
-        $requisito =RequisitosOferta::join('empresas','requisitos.idempresa','=','empresas.id')
+        $requisito =RequisitosOferta::join('oferta','requisitos.idoferta','=','oferta.id')
+        ->join('empresas','oferta.idempresa','=','empresas.id')
+        ->join('usuarios','oferta.idusuario','=','usuarios.id')
         ->select('requisitos.*',
-        'empresas.nombre as idempresa')
+        'oferta.img as img','oferta.salario as salario','empresas.nombre as idempresa','usuarios.nombres as idusuarios')
         ->Where("requisitos.id",$request->id)->get();
 
         return $requisito;
+            
 
         //$requisito=RequisitosOferta::where("id",$request->id)->get();
         //return $requisito;

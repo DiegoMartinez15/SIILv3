@@ -23,6 +23,7 @@ class CreateOfertaTable extends Migration
             $table->foreign('idrequisitos')->references('id')->on('requisitos');
             $table->integer('idcordinador')->unsigned();
             $table->foreign('idcordinador')->references('id')->on('coordinadores');
+            $table->string('img',300);
             
             
             $table->timestamps();
