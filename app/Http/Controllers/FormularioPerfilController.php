@@ -34,6 +34,7 @@ class FormularioPerfilController extends Controller
         $perfil = $request->nit;
         $perfil = $request->pasaporte;
         $perfil = $request->licencia_conducir;
+        $perfil = $request->nup;
         $perfil = $request->idsegundo_idioma;
         $perfil = $request->nivel_idioma;
         $perfil = $request->nacionalidad;
@@ -52,11 +53,11 @@ class FormularioPerfilController extends Controller
         $perfil = $request->idea_negocio;
         $perfil = $request->instituto_formador_emprede;
         $perfil = $request->anio_formacion;
-        $perfil = $request->experiencia_laboral;
+        $perfil = $request->experiencia_loboral;
         $perfil = $request->ultimo_periodo_trabajo;
         $perfil = $request->cargo_desempenado;
         $perfil = $request->habilidades_personales;
-        $perfil = $request->difilcultades_personales;
+        $perfil = $request->dificultades_personales;
         $perfil = $request->asistencia;
         $perfil = $request->puntualidad;
         $perfil = $request->responsabilidad;
@@ -84,6 +85,7 @@ class FormularioPerfilController extends Controller
         $perfil = $request->nit;
         $perfil = $request->pasaporte;
         $perfil = $request->licencia_conducir;
+        $perfil = $request->nup;
         $perfil = $request->idsegundo_idioma;
         $perfil = $request->nivel_idioma;
         $perfil = $request->nacionalidad;
@@ -102,11 +104,11 @@ class FormularioPerfilController extends Controller
         $perfil = $request->idea_negocio;
         $perfil = $request->instituto_formador_emprede;
         $perfil = $request->anio_formacion;
-        $perfil = $request->experiencia_laboral;
+        $perfil = $request->experiencia_loboral;
         $perfil = $request->ultimo_periodo_trabajo;
         $perfil = $request->cargo_desempenado;
         $perfil = $request->habilidades_personales;
-        $perfil = $request->difilcultades_personales;
+        $perfil = $request->dificultades_personales;
         $perfil = $request->asistencia;
         $perfil = $request->puntualidad;
         $perfil = $request->responsabilidad;

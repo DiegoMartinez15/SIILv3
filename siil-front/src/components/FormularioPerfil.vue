@@ -53,7 +53,6 @@
           label="Estado Civil"
           item-text="nombre"
           item-value="id"
-          return-object
           clearable
           :menu-props="{ closeOnClick: true }"
         ></v-select>
@@ -131,7 +130,6 @@
             label="Segundo Idioma"
             item-text="nombre"
             item-value="id"
-            return-object
             clearable
             :menu-props="{ closeOnClick: true }"
           ></v-autocomplete>
@@ -166,7 +164,6 @@
             label="Si? Seleccione"
             item-text="nombre"
             item-value="id"
-            return-object
             clearable
             :menu-props="{ closeOnClick: true }"
           ></v-autocomplete>
@@ -182,8 +179,8 @@
          <!--Si?Medicamentos-->
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="formulario.enfermedad_mencion"
-            label="Si? Mencionara"
+            v-model="formulario.medicamento_mencion"
+            label="Si? Mencionar"
           ></v-text-field>
         </v-col>
         <!--Discapacidad-->
@@ -425,14 +422,15 @@
         id:null,
         nombre:""
       },
-        aspirante:{
-        id:null,
-        nombre:""
+      aspirante:{
+        id:"",
+       
       },
-        egresado:{
-        id:null,
-        nombre:""
+      egresado:{
+        id:"",
+        
       },
+       
       formulario:{
         id: null,
         idaspirante: "",
@@ -520,9 +518,16 @@
     methods: {
       fetchAspirantes() {    
         
-        let me = this;  
+        let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            }; 
         me.aspirante.id = me.$store.state.idaspirante;
-        me.$http.get(`${me.$url}/aspirante/` + me.aspirante.id)
+        me.$http.get(`${me.$url}/aspirante/` + me.aspirante.id,header)
         .then(function(response){
           console.log(response.data)
           me.arrayAspirante = response.data;
@@ -532,10 +537,16 @@
         });
       },
        fetchEgresado() {  
-              
-        let me = this;          
+        let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            };          
         me.aspirante.id = me.$store.state.idaspirante;
-        me.$http.get(`${me.$url}/egresado/` + me.aspirante.id)
+        me.$http.get(`${me.$url}/egresado/` + me.aspirante.id,header)
         .then(function(response){
             console.log(response.data)
           me.arrayAlumno = response.data;
@@ -545,9 +556,15 @@
         });
       },
        fetchIdiomas() {    
-            
-        let me = this;          
-        me.$http.get(`${me.$url}/idioma`)
+        let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            };          
+        me.$http.get(`${me.$url}/idioma`,header)
         .then(function(response){
             console.log(response.data)
           me.arrayIdioma = response.data;
@@ -558,8 +575,15 @@
       },
       fetchEstados() {    
          
-        let me = this;          
-        me.$http.get(`${me.$url}/estadocivil`)
+        let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            };        
+        me.$http.get(`${me.$url}/estadocivil`,header)
         .then(function(response){
             console.log(response.data)
           me.arrayEstadoCivil = response.data;
@@ -569,9 +593,16 @@
         });
       },
       fetchEnfermadades() {   
-             
-        let me = this;          
-        me.$http.get(`${me.$url}/enfermedad`)
+         let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            };    
+                 
+        me.$http.get(`${me.$url}/enfermedad`,header)
         .then(function(response){
             console.log(response.data)
           me.arrayEnfermedad = response.data;
@@ -581,19 +612,27 @@
         });
       },
       saveForm(){
+        let token = localStorage.getItem('token');
+        let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+                
+              },
+            };
          
-          let me = this;
-          me.formulario.aspirante = me.arrayAspirante.id;
-          me.formulario.egresado = me.arrayAlumno.id;
-          console.log(me.formulario.aspirante)
-          console.log(me.formulario.egresado)
           if (me.$refs.formPerfil.validate()) {
             let accion ="add";
             if(accion=="add"){
-              me.$http.post(`${me.$url}/perfil`, me.formulario)
+               me.formulario.idaspirante = me.arrayAspirante.id;
+               me.formulario.idegresado = me.arrayAlumno.id;
+              console.log(me.formulario.idaspirante)
+              console.log(me.formulario.idegresado)
+              console.log(me.formulario)
+              me.$http.post(`${me.$url}/perfil`, me.formulario, header)
                 .then(function(response) {
                 me.verificarDatos(response.data, response.status, accion);
-                console.log(me.formulario)
+               
               })
               .catch(function(error) {
                 console.log(error);
