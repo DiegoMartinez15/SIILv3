@@ -18,8 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/aspirante/{id}', 'AspiranteController@index');
-Route::get('/egresado/{id}', 'EgresadoController@index');
-//Route::get('/aspirante/{id}/show', 'AspiranteController@show');
+Route::post("/perfil","FormularioPerfilController@store"); 
 
 

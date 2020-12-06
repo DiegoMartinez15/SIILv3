@@ -17,12 +17,15 @@ class CreateEgresadosTable extends Migration
             $table->bigIncrements('id');
             $table->integer('idaspirante')->unsigned();
             $table->foreign('idaspirante')->references('id')->on('aspirantes');
+            $table->integer('idegresado')->unsigned();
+            $table->foreign('idegresado')->references('id')->on('egresados');
             $table->string('fecha_nac',50);
             $table->string('foto',50);
             $table->string('correo',100);
             $table->string('genero',25);
             $table->string('direccion',100);
             $table->string('celular',9);
+            $table->string('celular2',9);
             $table->string('telefono',9);
             $table->string('dui',9);
             $table->string('red_social',20);

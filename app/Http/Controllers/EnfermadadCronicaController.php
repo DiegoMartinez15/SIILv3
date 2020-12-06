@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\EnfermadadesCronicas;
+use App\EnfermedadesCronicas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,8 +15,8 @@ class EnfermadadCronicaController extends Controller
      */
     public function index()
     {
-        $emfermedad = EnfermadadesCronicas::all();
-        return $emfermedad;
+        $enfermedad = EnfermedadesCronicas::all();
+        return $enfermedad;
     }
 
     /**

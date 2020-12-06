@@ -42,5 +42,8 @@ class Egresados extends Model
     'medio',
     'aceptacion',
     'observaciones'
-];
+    ];
+    public function perfil(){
+        return $this->hasMany('App/FormularioPerfiles');
+    }
 }

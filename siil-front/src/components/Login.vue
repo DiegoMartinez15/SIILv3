@@ -130,21 +130,26 @@
                 let user = response.data.user;
                 let dataU = response.data.dataUser; 
                 let estado = user.estado;
-                 let user =response.data.user 
-                me.$store.commmit('setid',user.id);
+                
 
                  switch (estado) {
                     case "A":
                       me.$router.push('/');
                       me.$store.commit('add',dataU.nombres);
                       me.$store.commit('permission',user.idtipo_usuario);
+                      user =response.data.user 
+                      me.$store.commit('setid',user.idaspirante);
                       console.log(me.$store.state.role);
+                      console.log("Este es el id del aspirante "+me.$store.state.idaspirante);
                      alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
                       break;
                     case "N":
                       me.$router.push('/accept');
                         me.$store.commit('add',dataU.nombres);
                         me.$store.commit('permission',user.idtipo_usuario);
+                        user =response.data.user 
+                        me.$store.commit('setid',user.idaspirante);
+                        console.log("Este es el id del aspirante "+me.$store.state.idaspirante);
                          alert("Llena el proceso para continuar");
                       break;
                     case "I":

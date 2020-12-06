@@ -1,6 +1,6 @@
 
 <template>
-  <v-form v-model="valid" ref="FormPerfil" >
+  <v-form v-model="valid" ref="formPerfil" :lazy-validation="true">
     <thead style="font-size:40px;align:center;">Registro de Perfil Ocupacional de Graduado</thead>
     <v-divider class="black"></v-divider>
     <thead style="font-size:25px">I.Datos Personales</thead>
@@ -11,22 +11,21 @@
          <!--nombre-->
         <v-col cols="12" md="6">
           <v-text-field
-            value="aspirante.nombres"
+            :label="arrayAspirante.nombres"
             disabled
           ></v-text-field>
         </v-col>
         <!--Apellido-->
         <v-col cols="12" md="6">
           <v-text-field
-            value="aspirante.apellidos"
+            :label="arrayAspirante.apellidos"
             disabled
           ></v-text-field>
         </v-col>
         <!--datepicker de nacimiento-->
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="formulario.fecha_nac"
-            value="egresado.fecha_nac"
+            :label="arrayAlumno.fecha_nac"
             disabled
           ></v-text-field>
         </v-col>
@@ -40,16 +39,16 @@
           ></v-text-field>
         </v-col>
         <!--Direccion-->
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
           <v-text-field
-            value="egresado.direccion"
+            :label="arrayAlumno.direccion"
             disabled
           ></v-text-field>
         </v-col>
         <!--estado civil-->
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="2">
            <v-select
-           v-model="formulario.estado_civil"
+           v-model="formulario.idestado_civil"
           :items="arrayEstadoCivil"
           label="Estado Civil"
           item-text="nombre"
@@ -60,21 +59,28 @@
         ></v-select>
         </v-col>
         <!--Numero de telefono-->
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="2">
           <v-text-field
-           value="egresado.celular"
+           :label="arrayAlumno.celular"
            disabled
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="2">
+          <v-text-field
+            v-model="formulario.celular2"
+            :rules="phoneRules"
+            label="Nuevo Numero"
           ></v-text-field>
         </v-col>
         <!--DUI-->
         <v-col cols="12" md="3">
           <v-text-field
-            value="egresado.dui"
+            :label="arrayAlumno.dui"
             disabled
           ></v-text-field>
         </v-col>
         <!--NIT-->
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="2">
           <v-text-field
             v-model="formulario.nit"
             :rules="nitRules"
@@ -83,11 +89,19 @@
           ></v-text-field>
         </v-col>
           <!--Pasaporte-->
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="2">
           <v-text-field
             v-model="formulario.pasaporte"
             :rules="passportRules"
             label="Pasaporte"
+            required
+          ></v-text-field>
+        </v-col>
+         <v-col cols="12" md="2">
+          <v-text-field
+            v-model="formulario.licencia_conducir"
+            :rules="nitRules"
+            label="Nit"
             required
           ></v-text-field>
         </v-col>
@@ -112,7 +126,7 @@
         <!--2 Idioma-->
         <v-col cols="12" md="4">
           <v-autocomplete
-            v-model="formulario.idioma"
+            v-model="formulario.idsegundo_idioma"
             :items = "arrayIdioma"
             label="Segundo Idioma"
             item-text="nombre"
@@ -139,23 +153,23 @@
       <!--Enfermemdad Cronica-->
         <v-col cols="12" md="6">
           <v-select
-            v-model="formulario.enfermedad_mencion"
+            v-model="formulario.enfermadad_mencion"
             :items="yesno"
             label="Padece alguna Enfermedad Cronica?"
           ></v-select>
         </v-col>
          <!--si?Enfermemdad Cronica-->
         <v-col cols="12" md="6">
-          <v-select
-            v-model="formulario.enfermedad"
-            :items="arrayEnfermedades"
+          <v-autocomplete
+            v-model="formulario.idenfermedad_cronica"
+            :items="arrayEnfermedad"
             label="Si? Seleccione"
             item-text="nombre"
             item-value="id"
             return-object
             clearable
             :menu-props="{ closeOnClick: true }"
-          ></v-select>
+          ></v-autocomplete>
         </v-col>
         <!--Medicamentos-->
         <v-col cols="12" md="6">
@@ -169,7 +183,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             v-model="formulario.enfermedad_mencion"
-            label="Si? Mencionar"
+            label="Si? Mencionara"
           ></v-text-field>
         </v-col>
         <!--Discapacidad-->
@@ -201,7 +215,7 @@
           ></v-text-field>
         </v-col>
         <!--Graduacion-->
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="2">
           <v-select
             v-model="formulario.anio_graduacion"
             :items="anios"
@@ -209,7 +223,7 @@
           ></v-select>
         </v-col>
          <!--Practica Pro-->
-        <v-col class="d-flex" cols="12" md="3">
+        <v-col class="d-flex" cols="12" md="4">
         <v-select
           v-model="formulario.practica_pro"
           :items="yesno"
@@ -253,10 +267,11 @@
           </v-col>
           <!--anio de formacion-->
           <v-col cols="12" md="2">
-            <v-text-field
+            <v-select
               v-model="formulario.anio_formacion"
+              :items="anios"
               label="Año de Formacion"
-            ></v-text-field>
+            ></v-select>
           </v-col>
            <!--Idea Negogio-->
           <v-col class="d-flex" cols="12" md="2">
@@ -315,7 +330,7 @@
           ></v-textarea>
           </v-col>
            <thead style="font-size:20px;" >Habitos Laborales:</thead>
-           <v-divider vertical="true" ></v-divider>
+           <v-divider vertical ></v-divider>
            <!--asistencia-->
           <v-col class="d-flex" cols="12" md="3">
           <v-select
@@ -348,7 +363,7 @@
             label="Disponibilidad Horaria para empleo"
           ></v-select>
           </v-col>
-           <!--disponabilidad empleo--> <!--falta en la migracion y en la bd-->
+           <!--disponabilidad empleo--> 
           <v-col class="d-flex" cols="12" md="6">
           <v-select
             
@@ -388,17 +403,16 @@
   </v-form>
   
 </template>
-
 <script>
   export default {
-    
-    data: () => ({
+    data () {
+      return {
       arrayAspirante:[],
       arrayAlumno:[],
-      arrayIdioma:[],
+      arrayIdioma:[], 
       arrayEnfermedad:[],
-      arrayForm:[],
       arrayEstadoCivil:[],
+      valid: true,
       idioma:{
         id:null,
         nombre:""
@@ -411,35 +425,30 @@
         id:null,
         nombre:""
       },
-      aspirante:{
-        id: null,
-        nombres: "",
-        apellidos: "",
-        articulado: "",
-        telefono: ""
+        aspirante:{
+        id:null,
+        nombre:""
       },
-      egresado:{
-        id: null,
-        aspirante: null,
-        fecha_nac: "",
-        celular:"",
-        dui:"",
-        direccion: ""
+        egresado:{
+        id:null,
+        nombre:""
       },
       formulario:{
         id: null,
-        aspirante: null,
+        idaspirante: "",
+        idegresado: "",
         lugar_nac:"",
+        celular2:"",
         idestado_civil:"",
         nit:"",
         pasaporte:"",
         licencia_conducir:"",
         nup:"",
-        idioma:null,
+        idsegundo_idioma:"",
         nivel_idioma:"",
         nacionalidad:"",
-        enfermedad:null,
-        enfermedad_mencion:"",
+        idenfermedad_cronica:"",
+        enfermadad_mencion:"",
         medicamento_perma:"",
         medicamento_mencion:"",
         discapacidad:"",
@@ -469,8 +478,7 @@
       yesno: ['Si', 'No'],
       time: ['Tiempo Completo', 'Medio Tiempo', 'Por Horas'],
       anios:['2015','2016','2017','2018','2019','2020'],
-      valid: false,
-    
+      
       bornRules: [
         v => !!v || 'Lugar de Nacimiento es requerido',
       ],
@@ -484,7 +492,6 @@
       ],
       phonePlace: '',
       phoneRules: [
-        v => !!v || 'Numero Telefonico es requerido',
         v => /^([0-9])*$/.test(v) || 'Formato no valido',
       ],
       
@@ -504,82 +511,89 @@
       nacionRules: [
         v => !!v || 'Nacionalidad es requerido',
       ]
-    }),
+    };
+  },
     computed: {
       
     },
+    
     methods: {
-       fetchAspirantes(aspirante) {        
+      fetchAspirantes() {    
+        
         let me = this;  
-        me.aspirante.id = me.$store.state.id;
-        me.$http.get(`${me.$url}/aspirante` + me.aspirante.id)
+        me.aspirante.id = me.$store.state.idaspirante;
+        me.$http.get(`${me.$url}/aspirante/` + me.aspirante.id)
         .then(function(response){
-            console.log(response.data)
+          console.log(response.data)
           me.arrayAspirante = response.data;
-          me.arrayAspirante.unshift(aspirante)
         })
         .catch(function(error){
           console.log(error);
         });
       },
-       fetchEgresado(egresado) {        
+       fetchEgresado() {  
+              
         let me = this;          
-        me.aspirante.id = me.$store.state.id;
-        me.$http.get(`${me.$url}/egresado` + me.aspirante.id)
+        me.aspirante.id = me.$store.state.idaspirante;
+        me.$http.get(`${me.$url}/egresado/` + me.aspirante.id)
         .then(function(response){
             console.log(response.data)
           me.arrayAlumno = response.data;
-          me.arrayAlumno.unshift(egresado)
         })
         .catch(function(error){
           console.log(error);
         });
       },
-       fetchIdiomas(idioma) {        
+       fetchIdiomas() {    
+            
         let me = this;          
         me.$http.get(`${me.$url}/idioma`)
         .then(function(response){
             console.log(response.data)
           me.arrayIdioma = response.data;
-           me.arrayIdioma.unshift(idioma)
         })
         .catch(function(error){
           console.log(error);
         });
       },
-      fetchEstados(estado) {        
+      fetchEstados() {    
+         
         let me = this;          
         me.$http.get(`${me.$url}/estadocivil`)
         .then(function(response){
             console.log(response.data)
           me.arrayEstadoCivil = response.data;
-           me.arrayEstadoCivil.unshift(estado)
         })
         .catch(function(error){
           console.log(error);
         });
       },
-      fetchEnfermadades(enfermedad) {        
+      fetchEnfermadades() {   
+             
         let me = this;          
         me.$http.get(`${me.$url}/enfermedad`)
         .then(function(response){
             console.log(response.data)
           me.arrayEnfermedad = response.data;
-           me.arrayEnfermedad.unshift(enfermedad)
         })
         .catch(function(error){
           console.log(error);
         });
       },
       saveForm(){
+         
           let me = this;
-          me.aspirante.id = me.$store.state.id;
-          if (me.$refs.formAreas.validate()) {
+          me.formulario.aspirante = me.arrayAspirante.id;
+          me.formulario.egresado = me.arrayAlumno.id;
+          console.log(me.formulario.aspirante)
+          console.log(me.formulario.egresado)
+          if (me.$refs.formPerfil.validate()) {
             let accion ="add";
             if(accion=="add"){
               me.$http.post(`${me.$url}/perfil`, me.formulario)
                 .then(function(response) {
                 me.verificarDatos(response.data, response.status, accion);
+                console.log(me.formulario)
               })
               .catch(function(error) {
                 console.log(error);
@@ -592,18 +606,28 @@
         let me = this;
 
         const Toast = me.$swal.mixin({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: true,
+          toast: true,    
           timer: 3000
         });
 
         switch (accion) {
           case "add":
-            me.arrayForm.unshift(formulario);
             Toast.fire({
-              icon: "success",
-              title: "Formulario Enviado Correctamente"
+              title: 'A donde vas tan rapido Vaquero?',
+              text: "Revisa muy bien tu informacion antes de ser enviada, una vez enviada no podras cambiar tu informacion",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, Enviar mi informacion'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Toast.fire(
+                  'Enviado Correctamente!',
+                  'Tu Informacion ha sido enviada con exito',
+                  'success'
+                )
+              }
             });
             break;
             }
@@ -611,19 +635,21 @@
 
     },
     mounted() {
-      let x =localStorage.getItem('token')
+       
+      let x = sessionStorage.getItem('tokenS');
       if(x != null){
-        this.saveForm(); 
+        this.fetchAspirantes();
       }else{
          
          this.$router.push('/login')
       }
       let me = this;
+
       me.fetchAspirantes();
+      me.fetchEgresado();
+      me.fetchIdiomas();
       me.fetchEstados();
       me.fetchEnfermadades();
-      me.fetchIdiomas();
-      me.fetchEgresado();
     },
-  }
+  };
 </script>

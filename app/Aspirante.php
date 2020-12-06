@@ -12,4 +12,7 @@ class Aspirante extends Model
     public function aspirantes(){
         return $this->hasMany('App/TipoUsuario');
     }
+    public function perfil(){
+        return $this->hasMany('App/FormularioPerfiles');
+    }
 }

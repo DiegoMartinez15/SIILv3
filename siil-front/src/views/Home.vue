@@ -59,7 +59,7 @@
             <!--MENU DE MARCAS-->
                  
             <!--Menu de Producto--> 
-            <v-list-item link :to="{path: '#'}">
+            <v-list-item link :to="{path:'/formulario_perfil'}">
               <v-list-item-action>
                 <v-icon>mdi mdi-file-pdf</v-icon>
               </v-list-item-action>
@@ -163,7 +163,7 @@
                   <v-list-item-title>Formularios</v-list-item-title>
                 </v-list-item-content>
           </template>
-          <v-list-item link ><!--menu de roles-->
+          <v-list-item link :to="{path:'/formulario_perfil'}"><!--menu de roles-->
             <v-list-item-action>
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>

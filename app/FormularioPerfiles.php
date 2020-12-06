@@ -8,17 +8,19 @@ class FormularioPerfiles extends Model
 {
     protected $table = "formularios_perfiles";
     protected $fillable=['idaspirante',
+    'idegresado',
     'lugar_naci',
-    'id_estado_civil',
+    'celular2',
+    'idestado_civil',
     'nit',
     'pasaporte',
     'licencia_conducir',
     'nup',
-    'id_segundo_idioma',
+    'idsegundo_idioma',
     'nivel_idioma',
     'nacionalidad',
-    'id_enfermedad_cronica',
-    'enfermedad_cronica',
+    'idenfermedad_cronica',
+    'enfermadad_cronica',
     'medicamento_perma',
     'medicamento_mencion',
     'discapacidad',
@@ -30,7 +32,7 @@ class FormularioPerfiles extends Model
     'oficios_realizar',
     'formacion_emprende',
     'idea_negocio',
-    'institucion_formadora_emprede',
+    'institucion_formador_emprede',
     'anio_formacion',
     'experiencia_loboral',
     'ultimo_periodo_trabajo',
@@ -42,5 +44,21 @@ class FormularioPerfiles extends Model
     'responsabilidad',
     'disponabilidad_horaria',
     'recomendacion_derivacion',
-    'otra_observaciones'];
-}
+    'otra_observacion'];
+
+    public function aspirante(){
+        return $this->hasMany('App/Aspirente');
+    }
+    public function enfermedad(){
+        return $this->hasMany('App/EnfermedadesCronicas');
+    }
+    public function egresado(){
+        return $this->hasMany('App/Egresados');
+    }
+    public function estados(){
+        return $this->hasMany('App/EstadosCiviles');
+    }
+    public function idioma(){
+        return $this->hasMany('App/SegundosIdiomas');
+    }
+}    
