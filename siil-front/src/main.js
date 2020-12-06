@@ -8,6 +8,8 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios';
 import url from "./config/config.js"
 
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 
 
 

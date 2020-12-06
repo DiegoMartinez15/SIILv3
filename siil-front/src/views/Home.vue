@@ -14,7 +14,7 @@
           <v-list-item class="px-2">
         <v-list-item-avatar
         size="45">
-          <v-img :src="'/itcha/escudo.png'"></v-img>
+          <v-img :src="'/itcha/escudo.png'" ></v-img>
         </v-list-item-avatar>
         <v-list-item-title class="tittle white--text">{{$store.state.name}}</v-list-item-title>
       </v-list-item>
@@ -24,7 +24,7 @@
   
       <v-list dense >
       <template>
-          <v-list-item class="mt-2 mb-2" link :to="{path:'/'}">
+          <v-list-item class="mt-2 mb-2" link :to="{path:'/ofertas'}">
               <v-list-item-action>
                 <v-icon>home</v-icon>
               </v-list-item-action>
@@ -48,7 +48,7 @@
         </template>
         <!--Menu de categoria-->
 
-        <v-list-item link :to="{path:'#'}">
+        <v-list-item link :to="{path:'/ofertas'}">
               <v-list-item-action>
                 <v-icon>mdi mdi-worker</v-icon>
               </v-list-item-action>
@@ -83,7 +83,7 @@
         </template>
         <!--Menu de administrador-->
       
-        <v-list-item link :to="{path:'/#'}">
+        <v-list-item link :to="{path:'/addofertas'}">
               <v-list-item-action>
                 <v-icon>mdi mdi-bookmark-plus</v-icon>
               </v-list-item-action>
@@ -163,7 +163,7 @@
                   <v-list-item-title>Formularios</v-list-item-title>
                 </v-list-item-content>
           </template>
-          <v-list-item link :to="{path:'/formulario_perfil'}"><!--menu de roles-->
+          <v-list-item link :to="{path:'/formulario_perfil'}" ><!--menu de roles-->
             <v-list-item-action>
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
@@ -232,14 +232,28 @@
 
 <v-divider></v-divider>
         <template>
-          <v-list-item class="mt-2 mb-2" link :to="{path:'/'}">
+          <v-list-item class="mt-2 mb-2">
               <v-list-item-action>
                 <v-icon>exit_to_app</v-icon>
               </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title @click="logout()">Cerrar Session</v-list-item-title>
+              <v-list-item-content style="margin-left:-20px">
+                <v-list-item-title><v-btn style="border:2px solid grey" @click="logout()">
+                 Cerrar Session</v-btn></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+          <!--<v-list-item class="mt-2 mb-2">
+              <v-list-item-action>
+                <v-list-item-content>
+                
+                <v-btn @click="logout()">
+                  
+                 <v-icon>exit_to_app</v-icon>&nbsp;Cerrar Session</v-btn>
+                  
+              </v-list-item-content>
+                
+              </v-list-item-action>
+             
+            </v-list-item>-->
       </template>
       </v-list>
     
@@ -251,22 +265,22 @@
       color="blue darken-3"
       dark
     >
-      <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer" ></v-app-bar-nav-icon>-->
+      
       
     
         
       <v-toolbar-title
-        style="width: 600px"
-        class="ml-0 pl-4"
+        
+        class="ml-0"
       >
       
-        <span class="hidden-sm-and-down">Sistema de Intermediacion Laboral</span>
+        <h4 class="text-right" style="font-size:16px">Sistema de Intermediacion Laboral</h4>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="logout()" icon>
+      <!--<v-btn @click="logout()" icon>
         <v-icon
         >mdi mdi-logout</v-icon>
-      </v-btn>
+      </v-btn>-->
     </v-app-bar>
     <v-main>
       <v-container
@@ -370,3 +384,6 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+</style>

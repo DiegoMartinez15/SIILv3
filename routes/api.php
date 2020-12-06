@@ -36,10 +36,13 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('logout', 'UserController@logout');
     Route::get('/aspirante/{id}', 'AspiranteController@index');
     Route::get('/egresado/{id}', 'EgresadoController@index');
-    Route::get("/idioma","SegundoIdiomaController@index");
-    Route::get("/estadocivil","EstadoCivilController@index"); 
-    Route::ApiResource("perfil","FormularioPerfilController@store");  
-    Route::get("/enfermedad","EnfermadadCronicaController@index");  
+    Route::ApiResource("idioma","SegundoIdiomaController");
+    Route::ApiResource("estadocivil","EstadoCivilController"); 
+    Route::ApiResource("perfil","FormularioPerfilController");  
+    Route::ApiResource("enfermedad","EnfermadadCronicaController");  
+    Route::ApiResource("ofertas","OfertaController");
+    Route::ApiResource("requisitos","RequisitoController");
+    Route::get('/ofertasr', 'OfertaController@find');
    
     
 });

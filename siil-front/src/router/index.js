@@ -6,6 +6,8 @@ import Areas from '../components/Areas.vue'
 import Usuarios from '../components/Usuarios.vue'
 import Empresas from '../components/Empresas.vue'
 import Login from '../components/Login.vue'
+import Oferta from '../components/HelloWorld.vue'
+import AddBussiness from '../components/AddBussiness.vue'
 import FormAccept from '../components/FormAccept.vue'
 import FormPerfil from '../components/FormularioPerfil.vue'
 
@@ -35,6 +37,18 @@ const routes = [
         name: 'areas',
         component: Areas,
         meta: { requiresAuth: true }
+      } ,
+      {
+        path: '/ofertas',
+        name: 'ofertas',
+        component: Oferta,
+        
+      } ,
+      {
+        path: '/addofertas',
+        name: 'add',
+        component: AddBussiness,
+        
       } ,
       {
         path: '/formulario_perfil',
@@ -78,7 +92,7 @@ router.beforeEach((to, from, next) => {
     if(store.state.role == 1 && sessionStorage.getItem('tokenS') != null){
       next()
     }else{
-      next('/')
+      next('/ofertas')
     }
   }else{
     next()
