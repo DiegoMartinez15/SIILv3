@@ -23,50 +23,50 @@ class FormularioPerfilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+   /* public function create(Request $request)
     {
         $perfil = new FormularioPerfiles();
-        $perfil = $request->idaspirante;
-        $perfil = $request->idegresado;
-        $perfil = $request->lugar_nac;
-        $perfil = $request->celular2;
-        $perfil = $request->idestado_civil;
-        $perfil = $request->nit;
-        $perfil = $request->pasaporte;
-        $perfil = $request->licencia_conducir;
-        $perfil = $request->nup;
-        $perfil = $request->idsegundo_idioma;
-        $perfil = $request->nivel_idioma;
-        $perfil = $request->nacionalidad;
-        $perfil = $request->idenfermedad_cronica;
-        $perfil = $request->enfermadad_mencion;
-        $perfil = $request->medicamento_perma;
-        $perfil = $request->medicamento_mencion;
-        $perfil = $request->discapacidad;
-        $perfil = $request->nivel_academico;
-        $perfil = $request->institucion_formadora;
-        $perfil = $request->anio_graduacion;
-        $perfil = $request->practica_pro;
-        $perfil = $request->cursos_informacion;
-        $perfil = $request->oficios_realizar;
-        $perfil = $request->formacion_emprende;
-        $perfil = $request->idea_negocio;
-        $perfil = $request->instituto_formador_emprede;
-        $perfil = $request->anio_formacion;
-        $perfil = $request->experiencia_loboral;
-        $perfil = $request->ultimo_periodo_trabajo;
-        $perfil = $request->cargo_desempenado;
-        $perfil = $request->habilidades_personales;
-        $perfil = $request->dificultades_personales;
-        $perfil = $request->asistencia;
-        $perfil = $request->puntualidad;
-        $perfil = $request->responsabilidad;
-        $perfil = $request->disponibilidad_horaria;
-        $perfil = $request->recomendacion_derivacion;
-        $perfil = $request->otra_observacion;
+        $perfil->idaspirante = $request->idaspirante;
+        $perfil->idegresado = $request->idegresado;
+        $perfil->lugar_nac = $request->lugar_nac;
+        $perfil->celular2 = $request->celular2;
+        $perfil->idestado_civil = $request->idestado_civil;
+        $perfil->nit = $request->nit;
+        $perfil->pasaporte = $request->pasaporte;
+        $perfil->licencia_conducir = $request->licencia_conducir;
+        $perfil->nup = $request->nup;
+        $perfil->idsegundo_idioma = $request->idsegundo_idioma;
+        $perfil->nivel_idioma = $request->nivel_idioma;
+        $perfil->nacionalidad = $request->nacionalidad;
+        $perfil->idenfermedad_cronica = $request->idenfermedad_cronica;
+        $perfil->enfermadad_mencion = $request->enfermadad_mencion;
+        $perfil->medicamento_perma = $request->medicamento_perma;
+        $perfil->medicamento_mencion = $request->medicamento_mencion;
+        $perfil->discapacidad = $request->discapacidad;
+        $perfil->nivel_academico = $request->nivel_academico;
+        $perfil->institucion_formadora = $request->institucion_formadora;
+        $perfil->anio_graduacion = $request->anio_graduacion;
+        $perfil->practica_pro = $request->practica_pro;
+        $perfil->cursos_informacion = $request->cursos_informacion;
+        $perfil->oficios_realizar = $request->oficios_realizar;
+        $perfil->formacion_emprende = $request->formacion_emprende;
+        $perfil->idea_negocio = $request->idea_negocio;
+        $perfil->instituto_formador_emprede = $request->instituto_formador_emprede;
+        $perfil->anio_formacion = $request->anio_formacion;
+        $perfil->experiencia_laboral = $request->experecia_laboral;
+        $perfil->ultimo_periodo_trabajo = $request->ultimo_periodo_trabajo;
+        $perfil->cargo_desempenado = $request->cargo_desempenado;
+        $perfil->habilidades_personales = $request->habilidades_personales;
+        $perfil->dificultades_personales = $request->dificultades_personales;
+        $perfil->asistencia = $request->asistencia;
+        $perfil->puntualidad = $request->puntualidad;
+        $perfil->responsabilidad = $request->responsabilidad;
+        $perfil->disponibilidad_horaria = $request->disponibilidad_horaria;
+        $perfil->recomendacion_derivacion = $request->recomendacion_derivacion;
+        $perfil->otra_observacion = $request->otra_observacion;
         $perfil->save();
-        return $perfil;
-    }
+       
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -77,46 +77,45 @@ class FormularioPerfilController extends Controller
     public function store(Request $request)
     {
         $perfil = new FormularioPerfiles();
-        $perfil = $request->idaspirante;
-        $perfil = $request->idegresado;
-        $perfil = $request->lugar_nac;
-        $perfil = $request->celular2;
-        $perfil = $request->idestado_civil;
-        $perfil = $request->nit;
-        $perfil = $request->pasaporte;
-        $perfil = $request->licencia_conducir;
-        $perfil = $request->nup;
-        $perfil = $request->idsegundo_idioma;
-        $perfil = $request->nivel_idioma;
-        $perfil = $request->nacionalidad;
-        $perfil = $request->idenfermedad_cronica;
-        $perfil = $request->enfermadad_mencion;
-        $perfil = $request->medicamento_perma;
-        $perfil = $request->medicamento_mencion;
-        $perfil = $request->discapacidad;
-        $perfil = $request->nivel_academico;
-        $perfil = $request->institucion_formadora;
-        $perfil = $request->anio_graduacion;
-        $perfil = $request->practica_pro;
-        $perfil = $request->cursos_informacion;
-        $perfil = $request->oficios_realizar;
-        $perfil = $request->formacion_emprende;
-        $perfil = $request->idea_negocio;
-        $perfil = $request->instituto_formador_emprede;
-        $perfil = $request->anio_formacion;
-        $perfil = $request->experiencia_loboral;
-        $perfil = $request->ultimo_periodo_trabajo;
-        $perfil = $request->cargo_desempenado;
-        $perfil = $request->habilidades_personales;
-        $perfil = $request->dificultades_personales;
-        $perfil = $request->asistencia;
-        $perfil = $request->puntualidad;
-        $perfil = $request->responsabilidad;
-        $perfil = $request->disponibilidad_horaria;
-        $perfil = $request->recomendacion_derivacion;
-        $perfil = $request->otra_observacion;
+        $perfil->idaspirante = $request->idaspirante;
+        $perfil->idegresado = $request->idegresado;
+        $perfil->lugar_nac = $request->lugar_nac;
+        $perfil->celular2 = $request->celular2;
+        $perfil->idestado_civil = $request->idestado_civil;
+        $perfil->nit = $request->nit;
+        $perfil->pasaporte = $request->pasaporte;
+        $perfil->licencia_conducir = $request->licencia_conducir;
+        $perfil->nup = $request->nup;
+        $perfil->idsegundo_idioma = $request->idsegundo_idioma;
+        $perfil->nivel_idioma = $request->nivel_idioma;
+        $perfil->nacionalidad = $request->nacionalidad;
+        $perfil->idenfermedad_cronica = $request->idenfermedad_cronica;
+        $perfil->enfermadad_mencion = $request->enfermadad_mencion;
+        $perfil->medicamento_perma = $request->medicamento_perma;
+        $perfil->medicamento_mencion = $request->medicamento_mencion;
+        $perfil->discapacidad = $request->discapacidad;
+        $perfil->nivel_academico = $request->nivel_academico;
+        $perfil->institucion_formadora = $request->institucion_formadora;
+        $perfil->anio_graduacion = $request->anio_graduacion;
+        $perfil->practica_pro = $request->practica_pro;
+        $perfil->cursos_informacion = $request->cursos_informacion;
+        $perfil->oficios_realizar = $request->oficios_realizar;
+        $perfil->formacion_emprende = $request->formacion_emprende;
+        $perfil->idea_negocio = $request->idea_negocio;
+        $perfil->instituto_formador_emprede = $request->instituto_formador_emprede;
+        $perfil->anio_formacion = $request->anio_formacion;
+        $perfil->experiencia_laboral = $request->experecia_laboral;
+        $perfil->ultimo_periodo_trabajo = $request->ultimo_periodo_trabajo;
+        $perfil->cargo_desempenado = $request->cargo_desempenado;
+        $perfil->habilidades_personales = $request->habilidades_personales;
+        $perfil->dificultades_personales = $request->dificultades_personales;
+        $perfil->asistencia = $request->asistencia;
+        $perfil->puntualidad = $request->puntualidad;
+        $perfil->responsabilidad = $request->responsabilidad;
+        $perfil->disponibilidad_horaria = $request->disponibilidad_horaria;
+        $perfil->recomendacion_derivacion = $request->recomendacion_derivacion;
+        $perfil->otra_observacion = $request->otra_observacion;
         $perfil->save();
-        return $perfil;
     }
 
     /**

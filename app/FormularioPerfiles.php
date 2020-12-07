@@ -34,7 +34,7 @@ class FormularioPerfiles extends Model
     'idea_negocio',
     'instituto_formador_emprede',
     'anio_formacion',
-    'experiencia_loboral',
+    'experiencia_laboral',
     'ultimo_periodo_trabajo',
     'cargo_desempenado',
     'habilidades_personales',

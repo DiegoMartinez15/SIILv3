@@ -19,5 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post("/perfil","FormularioPerfilController@store"); 
-
+Route::post("perfil/save","FormularioPerfilController@create");  
 

@@ -151,6 +151,7 @@
       <!--Enfermemdad Cronica-->
         <v-col cols="12" md="6">
           <v-select
+          
             v-model="formulario.enfermadad_mencion"
             :items="yesno"
             label="Padece alguna Enfermedad Cronica?"
@@ -159,6 +160,7 @@
          <!--si?Enfermemdad Cronica-->
         <v-col cols="12" md="6">
           <v-autocomplete
+           :disabled="formulario.enfermadad_mencion==='No'" 
             v-model="formulario.idenfermedad_cronica"
             :items="arrayEnfermedad"
             label="Si? Seleccione"
@@ -180,6 +182,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             v-model="formulario.medicamento_mencion"
+            :disabled="formulario.medicamento_perma==='No'"
             label="Si? Mencionar"
           ></v-text-field>
         </v-col>
@@ -258,6 +261,7 @@
           <!--institucion emprende-->
           <v-col cols="12" md="4">
             <v-text-field
+            :disabled="formulario.formacion_emprende==='No'"
               v-model="formulario.instituto_formador_emprede"
               label="Institucion formadora de Emprendimiento"
             ></v-text-field>
@@ -265,6 +269,7 @@
           <!--anio de formacion-->
           <v-col cols="12" md="2">
             <v-select
+              :disabled="formulario.formacion_emprende==='No'"
               v-model="formulario.anio_formacion"
               :items="anios"
               label="Año de Formacion"
@@ -295,6 +300,7 @@
           <!--periodo empleo-->
           <v-col cols="12" md="4">
             <v-text-field
+            :disabled="formulario.experecia_laboral==='No'"
               v-model="formulario.ultimo_periodo_trabajo"
               label="Periodo de Ultimo Empleo"
             ></v-text-field>
@@ -302,6 +308,7 @@
           <!--cargo-->
           <v-col cols="12" md="4">
             <v-text-field
+            :disabled="formulario.experecia_laboral==='No'"
               v-model="formulario.cargo_desempenado"
               label="Cargo desempeñado"
             ></v-text-field>
@@ -432,7 +439,7 @@
       },
        
       formulario:{
-        id: null,
+        id: "",
         idaspirante: "",
         idegresado: "",
         lugar_nac:"",
@@ -646,7 +653,7 @@
 
         const Toast = me.$swal.mixin({
           toast: true,    
-          timer: 3000
+          timer: 8000
         });
 
         switch (accion) {

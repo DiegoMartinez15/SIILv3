@@ -38,7 +38,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('/egresado/{id}', 'EgresadoController@index');
     Route::ApiResource("idioma","SegundoIdiomaController");
     Route::ApiResource("estadocivil","EstadoCivilController"); 
-    Route::ApiResource("perfil","FormularioPerfilController");  
+    Route::ApiResource("perfil","FormularioPerfilController"); 
     Route::ApiResource("enfermedad","EnfermadadCronicaController");  
     Route::ApiResource("ofertas","OfertaController");
     Route::ApiResource("requisitos","RequisitoController");
