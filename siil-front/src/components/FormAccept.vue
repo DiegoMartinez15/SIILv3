@@ -121,27 +121,27 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Aguarda si acceptas</span>
+          <span class="headline">Intermedacion Laboral</span>
         </v-card-title>
         <v-card-text>
-         Continue your learning with related content selected 
-         by the Team or move between pages by using the navigation links below.
+        Intermedacion Laboral es proceso que Itcha proporcia a sus Estudiantes durante un año,
+        ayudando abridar ofertas de empleo en el sector publico y privado.
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             color="accent darken-3"
             text
-            @click="dialog = false"
-          >
-            Cerrar
+            @click="fetchUsuarios()">
+            Accepto
           </v-btn>
           <v-btn
             color="accent darken-3"
             text
-            @click="fetchUsuarios()">
-            Si Accepto
-          </v-btn>
+            @click="dialog = false"
+          >
+            Cerrar
+          </v-btn>        
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -182,7 +182,11 @@ export default {
             .then(function(response){
                console.log(me.form);
               me.dialog = false;
-              alert("Bienvenido al SIIL");
+              me.$swal({title:"Bienvenido al SIIL",position: 'center',
+                      icon: 'success',                     
+                      showConfirmButton: false,
+                      timer: 2500
+                    });
                 console.log(response.data);
                     me.$router.push('/');
             })
@@ -244,7 +248,13 @@ export default {
             .then(function(response){ 
                if(response.status==200){ 
                   localStorage.clear();           
-                  alert("No tienes permiso de estar aqui");
+                  me.$swal({
+                    title:"No acepto el proceso de Intermedacion Laboral",
+                    icon: 'info',
+                    timer: 3500,
+                    showConfirmButton: false,
+                    footer: 'Para mayor informacion comunicarse con el encargado'                     
+                    });
                   me.$router.push('/login');
                }                        
             })

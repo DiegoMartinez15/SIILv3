@@ -59,7 +59,7 @@
             <!--MENU DE MARCAS-->
                  
             <!--Menu de Producto--> 
-            <v-list-item link :to="{path:'/formulario_perfil'}">
+            <v-list-item link :to="{path: '#'}">
               <v-list-item-action>
                 <v-icon>mdi mdi-file-pdf</v-icon>
               </v-list-item-action>
@@ -342,9 +342,15 @@ export default {
                if(response.status==200){ 
                   localStorage.clear(); 
                   sessionStorage.clear();
-                  alert("Adios");
-                  me.$router.push('/login')
-                console.log(response.data);
+                  me.$swal({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Session Cerrada',
+                          showConfirmButton: false,
+                          timer: 3000
+                    });
+                    me.$router.push('/login'),
+                    console.log(response.data)
                }                        
             })
             .catch(function(error){              

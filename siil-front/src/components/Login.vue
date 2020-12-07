@@ -113,7 +113,7 @@
             .post(`${me.$url}/users`, me.user )
             .then(function(response){
               me.dialog = false;
-              alert("REGistrado con exito");
+              alert("Registrado con exito");
                 console.log(response.data);
             })
             .catch(function(error){
@@ -129,16 +129,13 @@
               if(response.status == 200){
                 let msg = "Algo Salio Mal";
                 if(response.data.message == msg ){
-                   me.$swal({
+                 me.$swal({
                   title: "Error!",
                   text: "Tus credenciales estan mal!",
-                  icon: "error",
-                  button: "Ok!",
+                  icon: "error"
                 });
 
-                }else{
-                
-               
+                }else{                    
                     let x = response.data.token;
                 sessionStorage.setItem('tokenS',x)
                 localStorage.setItem('token',x);
@@ -151,24 +148,32 @@
                       me.$router.push('/ofertas');
                       me.$store.commit('add',dataU.nombres);
                       me.$store.commit('permission',user.idtipo_usuario);
-                      user =response.data.user 
-                      me.$store.commit('setid',user.idaspirante);
-                      console.log(me.$store.state.role);
-                      console.log("Este es el id del aspirante "+me.$store.state.idaspirante);
-                     alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
+                      me.$store.commit('setid',user.id);
+                     //alert("Bienvenido al sistema  : !!"+ dataU.nombres +" !!");
                       break;
                     case "N":
                       me.$router.push('/accept');
                         me.$store.commit('add',dataU.nombres);
                         me.$store.commit('permission',user.idtipo_usuario);
-                        user =response.data.user 
-                        me.$store.commit('setid',user.idaspirante);
-                        console.log("Este es el id del aspirante "+me.$store.state.idaspirante);
-                         alert("Llena el proceso para continuar");
+                        me.$store.commit('setid',user.id);
+                        me.$swal({
+                          title:"Llena el proceso para continuar",
+                          timer: 2500,showConfirmButton: false,                                            
+                          })
+                          me.$swal.showLoading()
+                          
                       break;
-                    case "I":
-                      me.$router.push('/login');
-                      alert("Lo siento no Acceptastes el proceso");
+                    case "I":                     
+                      me.$swal({
+                         icon: 'error',
+                          title: 'Informacion',
+                          text: 'No acepto el seguimiento!',
+                          footer: 'Comunicarse con el encargado',
+                          backdrop:true
+                          
+                        })             
+                                 
+                        me.$router.push('/login');                     
                       break;
                   }
                 }
@@ -231,4 +236,5 @@
   height: 180px;
  
 }
+
 </style>

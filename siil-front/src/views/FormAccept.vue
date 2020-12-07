@@ -35,9 +35,10 @@
                 <v-row align="center"
                     class="pl-10"
                     justify="space-around">
+                    
               
           
-            <v-col
+                  <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -77,7 +78,7 @@
                    
                 </v-radio-group>
                 </v-col>
-                 
+                
                </v-row>
                 <v-row >
                   <v-col
@@ -94,7 +95,8 @@
                   row-height="15"
                 ></v-textarea>
                   </div>
-                </v-col> 
+                </v-col>
+                 
                 </v-row>
                
                <v-btn
@@ -119,33 +121,33 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Aguarda si acceptas</span>
+          <span class="headline">Intermedacion Laboral</span>
         </v-card-title>
         <v-card-text>
-         Continue your learning with related content selected 
-         by the Team or move between pages by using the navigation links below.
+        Intermedacion Laboral es proceso que Itcha proporcia a sus Estudiantes durante un año,
+        ayudando abridar ofertas de empleo en el sector publico y privado.
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             color="accent darken-3"
             text
-            @click="dialog = false"
-          >
-            Cerrar
+            @click="fetchUsuarios()">
+            Accepto
           </v-btn>
           <v-btn
             color="accent darken-3"
             text
-            @click="formAccept()"
+            @click="dialog = false"
           >
-            Si Accepto
-          </v-btn>
+            Cerrar
+          </v-btn>        
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
-    </template>
+  </template>
+  <!--Fin del Modal de acceptacion-->
 </v-app>
 </template>
 <script>
@@ -164,10 +166,51 @@ export default {
     },
       methods:{
           FormLoad(){
-              let me = this;
+            let me = this;
              me.dialog = true;
              me.no = false;
           },
+          fetchUsuarios() {
+            let me = this;
+             me.form.acepto = "SI";
+            me.$http
+            .post(`${me.$url}/formfirst`, this.form,{
+              headers:{
+                Authorization: 'Bearer '+localStorage.getItem('token'),
+              }
+            } )
+            .then(function(response){
+               console.log(me.form);
+              me.dialog = false;
+              me.$swal({title:"Bienvenido al SIIL",position: 'center',
+                      icon: 'success',                     
+                      showConfirmButton: false,
+                      timer: 2500
+                    });
+                console.log(response.data);
+                    me.$router.push('/');
+            })
+            .catch(function(error){
+              console.log(error);
+            });
+          },
+           formAccept(){
+            let me = this; 
+            me.form.acepto = "SI";
+            console.log(me.form);
+            me.$http
+              .post(`${me.$url}/formAccept`, me.form)
+              .then(function(response){
+                  console.log(response.data);
+                    me.dialog = false; 
+                    me.$router.push('/');
+              })
+              .catch(function(error){
+                console.log(error);
+              });
+          },     
+
+
           formNotAccept(){
               let me = this;
                   if(me.radioGroup == "Otro"){
@@ -179,16 +222,19 @@ export default {
                   console.log(me.form);
                   }
               me.$http
-                .post(`${me.$url}/formAccept`,me.form)
+                .post(`${me.$url}/formfirst`,me.form,{
+              headers:{
+                Authorization: 'Bearer '+localStorage.getItem('token'),
+              }
+            } )
                 .then(function(response){
                     console.log(response.data);
-                    me.logout();
-                     me.$router.push('/login');
-                     
+                     me.logout();  
                 })
                 .catch(function(error){
                   console.log(error);
             });
+           
           },
           logout(){
              let x = localStorage.getItem('token');
@@ -198,37 +244,34 @@ export default {
                 "Authorization": "Bearer "+ x,
               },
             };
-            console.log(x)
              me.$http.get(`${me.$url}/logout`,header)
             .then(function(response){ 
                if(response.status==200){ 
                   localStorage.clear();           
-                  alert("No tienes permiso de estar aqui");
-                console.log(response.data);
+                  me.$swal({
+                    title:"No acepto el proceso de Intermedacion Laboral",
+                    icon: 'info',
+                    timer: 3500,
+                    showConfirmButton: false,
+                    footer: 'Para mayor informacion comunicarse con el encargado'                     
+                    });
+                  me.$router.push('/login');
                }                        
             })
             .catch(function(error){              
               console.log(error);
             });
-          },
-       
-     formAccept(){
-        let me = this; 
-        me.form.acepto = "SI";
-        console.log(me.form);
-        me.$http
-          .post(`${me.$url}/formAccept`,me.form)
-          .then(function(response){
-              console.log(response.data);
-                me.dialog = false; 
-                 me.$router.push('/');
-           })
-          .catch(function(error){
-             console.log(error);
-          });
-      },     
+          }
     },
     mounted(){
+       let x =localStorage.getItem('token')
+      if(x != null){
+        console.log("Si tienes acceso");
+      }else{
+         
+         this.$router.push('/login')
+      }
+       
 
     },
 };
@@ -236,7 +279,7 @@ export default {
 <style scoped>
 
 .img{
-    background-image: url('/img/11.jpg');
+    background-image: url('/itcha/accept1.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     
