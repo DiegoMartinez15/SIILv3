@@ -72,7 +72,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          mdi-home
+          mdi-info
         </v-icon>
       </template>
       <span>Tooltip</span>
