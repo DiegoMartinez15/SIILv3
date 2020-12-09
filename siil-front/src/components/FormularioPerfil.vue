@@ -64,6 +64,19 @@
            disabled
           ></v-text-field>
         </v-col>
+        <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+        <v-icon
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          mdi-home
+        </v-icon>
+      </template>
+      <span>Tooltip</span>
+      </v-tooltip>
         <v-col cols="12" md="2">
           <v-text-field
             v-model="formulario.celular2"
@@ -659,7 +672,7 @@
         switch (accion) {
           case "add":
             Toast.fire({
-              title: 'A donde vas tan rapido Vaquero?',
+              title: 'A donde vas tan rapido Vaquer@?',
               text: "Revisa muy bien tu informacion antes de ser enviada, una vez enviada no podras cambiar tu informacion",
               icon: 'warning',
               showCancelButton: true,
