@@ -26,51 +26,53 @@ class UserController extends Controller
         if($user != null){
             if($user != null && $request->password == $user->password){/**** * AQUI HAY PROBLEMA POR QUE NO SE COMO CIFRAN LA CLAVE **********/
                 $tableUser = User::where("idaspirante","=",$user->id)->first();
-                if($tableUser == null){
-                    $input = $user->id;
-                    User::create([
-                        'estado' => 'N',
-                        'idform_accept'=> null,
-                        'idtipo_usuario' => 2,
-                        'idaspirante' => $input, 
-                    ]);
-                    $userid  = User::orderBy('id','DESC')->first();
-                    $upd = Aspirante::find($user->id);
-                    $upd->idusers = $userid->id;
-                    $upd->save();
-                   
-                    $tableUser = User::where("idaspirante","=",$user->id)->first();
-                    if($tableUser != null){
-                        $token = $tableUser->createToken('SIILv3')->accessToken;
-                        $dataU =  Aspirante::where("codigo","=",$request->email)->first();
-                        return response()->json([
-                            'res' => true,
-                            'message' =>"Todo bien hasta ahorita primer if de creacion",
-                            'user'=>$tableUser,
-                            'token'=>$token,
-                            'dataUser'=>$dataU
-                        ],200);
-                    }else{
-                        return response()->json([
-                            'res' => true,
-                            'message' =>"Algo esta mal donde hace el token por primera ves",
-                        ],200);
-                    }
-                }else{
-                    $token = $tableUser->createToken('SIILv3')->accessToken;
-                    $dataU =  Aspirante::where("codigo","=",$request->email)->first();
-                    return response()->json([
-                        'res' => true,
-                        'message' =>"Todo bien hasta ahorita ya ingreso y esta es la segunda vez if de creacion",
-                        'user'=>$tableUser,
-                        'token'=>$token,
-                        'dataUser'=>$dataU
-                    ],200);
-                }
+                        if($tableUser == null){
+                            $input = $user->id;
+                            User::create([
+                                'estado' => 'N',
+                                'idform_accept'=> null,
+                                'idtipo_usuario' => 2,
+                                'idaspirante' => $input, 
+                            ]);
+                            $userid  = User::orderBy('id','DESC')->first();
+                            $upd = Aspirante::find($user->id);
+                            $upd->idusers = $userid->id;
+                            $upd->save();
+                        
+                                $tableUser = User::where("idaspirante","=",$user->id)->first();
+                                    if($tableUser != null){
+                                        $token = $tableUser->createToken('SIILv3')->accessToken;
+                                        $dataU =  Aspirante::where("codigo","=",$request->email)->first();
+                                        return response()->json([
+                                            'res' => true,
+                                            'message' =>"Todo bien hasta ahorita primer if de creacion",
+                                            'user'=>$tableUser,
+                                            'token'=>$token,
+                                            'dataUser'=>$dataU
+                                        ],200);
+                                    }else{
+                                        return response()->json([
+                                            'res' => true,
+                                            'message' =>"Algo esta mal donde hace el token por primera ves",
+                                        ],200);
+                                    }
+                        }else{
+                            $token = $tableUser->createToken('SIILv3')->accessToken;
+                            $dataU =  Aspirante::where("codigo","=",$request->email)->first();
+                            return response()->json([
+                                'res' => true,
+                                'message' =>"Todo bien hasta ahorita ya ingreso y esta es la segunda vez if de creacion",
+                                'user'=>$tableUser,
+                                'token'=>$token,
+                                'dataUser'=>$dataU
+                            ],200);
+                        }
             }else{
                 return response()->json([
                     'res' => true,
-                    'message' =>"El codigo o contraseña son incorrectos"
+                    'message' =>"Ingresa Las credenciales correctas",
+                    
+                    //'message' =>"El codigo o contraseña son incorrectos"
                 ],200);
             }
         /* AQUI VA  SI NO EXISTE EN LA TABLA ASPIRANTE ES POR QUE ES UN USUARIO ADMINISTRADOR */
@@ -127,29 +129,17 @@ class UserController extends Controller
                 }else{
                     return response()->json([
                         'res' => true,
-                        'message' =>"Algo Salio Mal",
+                        'message' =>"Ingresa Las credenciales correctas",
                     ],200);
 
                 }
             }else{
                 return response()->json([
                     'res' => true,
-                    'message' =>"Ingresa Las credenciales correctas"
+                    'message' =>"Tus credenciales no estan registradas"
                 ],200);
             }
         }
-        /*$user = User::whereEmail($request->email)->first();
-        if(!is_null($user) && Hash::check($request->password, $user->password)){
-            $token = $user->createToken('SIILv3')->accessToken;
-            return response()->json([
-                'res' => true,
-                'token' => $token,
-                'message' =>"Bienvenido al sistema ",
-                'user' => $user
-            ],200);
-        }else{
-            
-        }*/
     }
     public function logout(){
         $user = auth()->user();

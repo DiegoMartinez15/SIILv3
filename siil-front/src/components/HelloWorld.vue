@@ -56,7 +56,7 @@
         <!--Comienzo del card
         <v-img  id="cardimg" class="img-circle img-fluid elevation-1" :src="'/ImgOfertas/'+ item.img"   height="160"></v-img>
          -->  
-        <v-card id="cardoferta" v-show="mostar == true" v-for="(item, index) in items" :key="index"   class="mx-auto elevation-6" width="295"  style="margin: 20px" >
+        <v-card id="cardoferta"  v-for="(item, index) in items" :key="index" v-show="mostar == true"   class="mx-auto elevation-6" width="295"  style="margin: 20px" >
               <div class=" text-center" >
                 <v-avatar 
                       class="mt-4 "
@@ -292,7 +292,7 @@
         .then(function(response){
             console.log(response.data)
           me.arrayAreas = response.data;
-          let todas = {id:'1',nombre:'Todas'};
+          let todas = {nombre:'Todas'};
           me.arrayAreas.push(todas);
           console.log(me.arrayAreas);
           me.loader = false;
@@ -311,21 +311,26 @@
               },
             };
         me.loader = true;
-        me.page = 1;
+        
+        console.log(me.arraybusqueda);
         if(me.arraybusqueda == 'Todas'){
-           me.$http.get(`${me.$url}/ofertas?page=`+me.page,header)
-        .then(function(response){
-          me.items = response.data.ofertas.data;
-          me.pagination = response.data.pagination;
-          me.loader = false;
+            me.$http.get(`${me.$url}/ofertas?page=`+me.page,header)
+          .then(function(response){
+            me.items = response.data.ofertas.data;
+            console.log(me.items);
+            me.pagination = response.data.pagination;
+            me.loader = false;
+            me.mostar = true;
           })
           .catch(function(error){
-          me.loader = false;
-          console.log(error);
-        });
+            me.loader = false;
+            console.log(error);
+          });
+       
         }else{
+          
            me.$http.get(`${me.$url}/ofertasr?nombre=`+me.arraybusqueda,header)
-        .then(function(response){                        
+          .then(function(response){                        
             me.items = response.data;        
                me.pagination = response.data.pagination;
                if(response.data.pagination == null){

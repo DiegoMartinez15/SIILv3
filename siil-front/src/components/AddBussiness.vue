@@ -9,7 +9,7 @@
      </div>
      <thead id="title" style="font-size:40px;align:center;">Registro de Ofertas de Empleo</thead>
       
-     
+       
   <v-form ref="formOferta" v-model="validForm" :lazy-validation="true" >
     
     <v-container>
@@ -133,14 +133,14 @@
         hide-details
         single-line
         min="14"
+        
         label="Edad "
         width="20"
         type="number"
         />
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              
+            <v-icon              
               v-bind="attrs"
               v-on="on"
             >
@@ -195,12 +195,6 @@
          :items="licencia"
          :item-text="'estado'"
          :item-value="'estado'"></v-select>
-          <!--<v-text-field
-            v-model="ofertas.licencia"
-            :rules="[v => !!v || 'Este Campo es requerido']"
-            label="Licencia de conducir"
-            required
-          ></v-text-field>-->
         </v-col>
         <v-col
           cols="12"
@@ -235,8 +229,7 @@
           &nbsp;&nbsp;
           <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              
+            <v-icon              
               v-bind="attrs"
               v-on="on"
             >
@@ -247,12 +240,14 @@
        </v-tooltip>
         </v-col>
 
-        
-        
       </v-row>
       </v-card-subtitle>
     </v-card>
+    
+         
+     
     </v-container>
+  
     <!--<v-alert
       class="ml-10 mr-10"
       dense
@@ -263,12 +258,20 @@
     <strong>Interesados/as, enviar currículum al correo: </strong> 
     <a href="mailto:empleochalatenango@mtps.gob.sv"> empleochalatenango@mtps.gob.sv </a>
     </v-alert>-->
-    <v-btn
-    id="btnoferta"
-    color="success"
-    width="300"
-     @click="saveoferta()" >Guardar Oferta</v-btn>
+     
+      
+      
   </v-form>
+    <v-col
+    col="12"
+    md="12"
+    >
+      <v-btn
+        id="btnoferta"
+        color="success"
+        @click="saveoferta()" >Guardar Oferta</v-btn>
+    </v-col>
+  
      
   </div>
 </template>
@@ -516,18 +519,18 @@
   }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 #title{
     font-family: 'Open Sans', sans-serif;
 }
 #btnoferta{
   display: flex;
-  width: 350px;
-  height: 40px;
   margin: 0 auto;
-  
-  
+ 
 }
+  
+  
+
 
 
 .custom-input-file {

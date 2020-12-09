@@ -15,23 +15,22 @@ class OfertaController extends Controller
         if($request->nombre == 'Todas'){
 
             $ofertas = Oferta::join('empresas','oferta.idempresa','=','empresas.id')
-                ->join('areas','empresas.idarea','=','areas.id')
-                ->join('usuarios','empresas.idusuario','=','usuarios.id')
-                ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','empresas.nombre as idempresa','empresas.direccion as direccion','empresas.telefono as telefono'
-                ,'empresas.encargado as encargado','areas.nombre as idarea','usuarios.nombres as usuario')
-                ->orderBy('id','DESC')->paginate(2);
-                return [
-                    'pagination' => [
-                        'total' => $ofertas->total(),
-                        'current_page' => $ofertas->currentPage(),
-                        'per_page' => $ofertas->perPage(),
-                        'last_page' => $ofertas->lastPage(),
-                        'from' => $ofertas->firstItem(),
-                        'to' => $ofertas->lastPage(),
-                    ],
-                    'ofertas' => $ofertas
-                ];
-
+            ->join('areas','empresas.idarea','=','areas.id')
+            ->join('usuarios','empresas.idusuario','=','usuarios.id')
+            ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','empresas.nombre as idempresa','empresas.direccion as direccion','empresas.telefono as telefono'
+            ,'empresas.encargado as encargado','areas.nombre as idarea','usuarios.nombres as usuario')
+            ->orderBy('id','DESC')->paginate(3);
+            return [
+                'pagination' => [
+                    'total' => $ofertas->total(),
+                    'current_page' => $ofertas->currentPage(),
+                    'per_page' => $ofertas->perPage(),
+                    'last_page' => $ofertas->lastPage(),
+                    'from' => $ofertas->firstItem(),
+                    'to' => $ofertas->lastPage(),
+                ],
+                'ofertas' => $ofertas
+            ];
         }else{
             $ofertas = Oferta::join('empresas','oferta.idempresa','=','empresas.id')
                 ->join('areas','empresas.idarea','=','areas.id')
@@ -39,17 +38,23 @@ class OfertaController extends Controller
                 ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','empresas.nombre as idempresa','empresas.direccion as direccion','empresas.telefono as telefono'
                 ,'empresas.encargado as encargado','areas.nombre as idarea','usuarios.nombres as usuario')
                 ->where("areas.nombre",$request->nombre)
-                ->get();
-            return $ofertas;
+                ->orderBy('id','DESC')->paginate(100);
+            return [
+                    'pagination' => [
+                    'total' => $ofertas->total(),
+                    'current_page' => $ofertas->currentPage(),
+                    'per_page' => $ofertas->perPage(),
+                    'last_page' => $ofertas->lastPage(),
+                    'from' => $ofertas->firstItem(),
+                    'to' => $ofertas->lastPage(),
+                ],
+                'ofertas' => $ofertas
+            ];
 
         }
         
     }
-
-
     public function index(Request $request){
-      
-    
         $ofertas = Oferta::join('empresas','oferta.idempresa','=','empresas.id')
         ->join('areas','empresas.idarea','=','areas.id')
         ->join('usuarios','empresas.idusuario','=','usuarios.id')
@@ -67,16 +72,6 @@ class OfertaController extends Controller
             ],
             'ofertas' => $ofertas
         ];
-
-
-        /*$oferta = Oferta::orderBy('id','DESC')->get();
-
-
-         $coordinador = Coordinador::join('tipos_usuarios','coordinadores.idusuario','=','tipos_usuarios.id')
-        ->select('coordinadores.id','coordinadores.nombre','coordinadores.idusuario',
-        'tipos_usuarios.nombre as idusuario')->get();
-
-       return $oferta;*/
     }
 
     public function store(Request $request, Oferta $ofertas, RequisitosOferta $requisitos){
@@ -135,15 +130,6 @@ class OfertaController extends Controller
             return $form;
         }  
 
-
-    /*public function find(Request $request){
-        $ofertas = Oferta::join('empresas','oferta.idempresa','=','empresas.id')
-        ->join('areas','empresas.idarea','=','areas.id')
-        ->join('usuarios','empresas.idusuario','=','usuarios.id')
-        ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','empresas.nombre as idempresa','empresas.direccion as direccion','empresas.telefono as telefono'
-        ,'empresas.encargado as encargado','areas.nombre as idarea','usuarios.nombres as usuario')->get();
-        return $ofertas;
-    }*/
 
 }
 

@@ -132,7 +132,7 @@
           <v-btn
             color="accent darken-3"
             text
-            @click="fetchUsuarios()">
+            @click="formAccept()">
             Accepto
           </v-btn>
           <v-btn
@@ -170,7 +170,7 @@ export default {
              me.dialog = true;
              me.no = false;
           },
-          fetchUsuarios() {
+          formAccept() {
             let me = this;
              me.form.acepto = "SI";
             me.$http
@@ -188,29 +188,12 @@ export default {
                       timer: 2500
                     });
                 console.log(response.data);
-                    me.$router.push('/');
+                    me.$router.push('/ofertas');
             })
             .catch(function(error){
               console.log(error);
             });
           },
-           formAccept(){
-            let me = this; 
-            me.form.acepto = "SI";
-            console.log(me.form);
-            me.$http
-              .post(`${me.$url}/formAccept`, me.form)
-              .then(function(response){
-                  console.log(response.data);
-                    me.dialog = false; 
-                    me.$router.push('/');
-              })
-              .catch(function(error){
-                console.log(error);
-              });
-          },     
-
-
           formNotAccept(){
               let me = this;
                   if(me.radioGroup == "Otro"){
@@ -251,7 +234,7 @@ export default {
                   me.$swal({
                     title:"No acepto el proceso de Intermedacion Laboral",
                     icon: 'info',
-                    timer: 3500,
+                    timer: 10500,
                     showConfirmButton: false,
                     footer: 'Para mayor informacion comunicarse con el encargado'                     
                     });

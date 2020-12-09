@@ -211,46 +211,9 @@
         me.areas = Object.assign({},area);
         me.modalAreas = true;
       },
-      /*saveAreas() {
-        let me = this;
-       
-        if(me.$refs.formAreas.validate()) {
-          let accion = me.areas.id == null ? "add" : "upd";
-          me.loader = true;
-          me.$http
-            .post(`${me.$url}/areas`, me.areas)
-            .then(function(response) {
-              me.verificarAccionDato(response.data, response.status, accion);
-              me.cerrarModal();
-            })
-            .catch(function(error) {
-              console.log(error);
-              //409 conflicts Error (Proveedor ya existe en la base de datos)
-              if(error.response.status == 409) {
-                me.setMessageToSnackBar("Areas Ya Existente", true);
-                me.errorsNombre = ["Nombre de la Areas ya Existente"];
-              }else {
-                me.$swal("Error", "Ocurrido Un Error Intente de Nuevovamente", "error");
-              }
-              me.loader = false;
-            });
-            }else{
-            //para actualizar
-            me.$http.put('/areas/'+me.area.id, me.area)
-               .then(function(response) {
-                   console.log(response.data);
-                    me.verificarAccionDato(response.data, response.status, "upd");
-                    me.cerrarModal();
-            })
-          .catch(function(error) {
-            console.log(error);
-            me.loader = false; 
-          });
-        }
-      },*/
       saveAreas() {
       let me = this;
-      if (me.$refs.formAreas.validate()) {
+      if (me.$refs.formAreas.validate()){
         let accion = me.areas.id == null ? "add" : "upd";
         me.loader = true;
         if(accion=="add"){
@@ -261,7 +224,6 @@
           })
           .catch(function(error) {
             console.log(error);
-            //409 Conflicts Error (Proveedor Ya Existente En la BD)
             if (error.response.status == 409) {
               me.setMessageToSnackBar("Area Ya Existe", true);
               me.errorsNombre = ["Nombre De Area Existente"];
