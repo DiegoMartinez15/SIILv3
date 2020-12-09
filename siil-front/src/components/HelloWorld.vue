@@ -85,7 +85,7 @@
                  
                 </div>
            
-                <v-card-actions id="cardactions" >
+                <v-card-actions id="cardactions">
                   <v-col class="text-center mt-3 " cols="12" sm="12" >
                       <v-btn @click="LoadModal(item.idrequisito)" id="btncard" elevation="10" color="blue darken-1" dark class="mb-2" >
                       Informacion&nbsp;
@@ -192,9 +192,6 @@
                   <v-col class="text-right" cols="6" sm="4" >
                   <v-btn @click="dialog = false" color="primary">Atras</v-btn>
                   </v-col>
-              
-               
-              
               </v-card-actions>
             </v-card>
           </v-dialog>
