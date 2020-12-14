@@ -2,6 +2,7 @@ import Vue from 'vue'
 import store from '../store'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import MainPage from '../views/MainPage.vue'
 import Areas from '../components/Areas.vue'
 import Usuarios from '../components/Usuarios.vue'
 import Empresas from '../components/Empresas.vue'
@@ -84,6 +85,38 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: FormAccept,
     }
+<<<<<<< Updated upstream
+=======
+     
+    ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/MainPage',
+    name: 'mainpage',
+    component: MainPage
+  },
+  {
+    path: '/about',
+    name: 'About',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/accept',
+    name: 'FormAccept',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: FormAccept,
+  }
+>>>>>>> Stashed changes
 ]
 
 const router = new VueRouter({
@@ -93,6 +126,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+<<<<<<< Updated upstream
     if (to.matched.some(route => route.meta.requiresAuth)) {
         if (store.state.role == 1 && sessionStorage.getItem('tokenS') != null) {
             next()
@@ -101,6 +135,13 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         next()
+=======
+  if (to.matched.some(route => route.meta.requiresAuth)){
+    if(store.state.role != 2 && sessionStorage.getItem('tokenS') != null){
+      next()
+    }else{
+      next('/ofertas')
+>>>>>>> Stashed changes
     }
 });
 
