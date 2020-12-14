@@ -149,7 +149,8 @@
                       me.$router.push('/ofertas');
                       me.$store.commit('add',dataU.nombres);
                       me.$store.commit('permission',user.idtipo_usuario);
-                      me.$store.commit('setid',user.id);
+                      me.$store.commit('setid',user.idaspirante);
+                      console.log('este es el id del aspirante'+ user.idaspirante)
                       me.$swal({title:"Bienvenido",position: 'center',
                       icon: 'success',                                      
                       showConfirmButton: false,
@@ -161,7 +162,8 @@
                       me.$router.push('/accept');
                         me.$store.commit('add',dataU.nombres);
                         me.$store.commit('permission',user.idtipo_usuario);
-                        me.$store.commit('setid',user.id);
+                        me.$store.commit('setid',user.idaspirante);
+                        console.log('este es el id del aspirante'+ user.idaspirante)
                         me.$swal({
                           title:"Llena el proceso para continuar",
                           timer: 2500,showConfirmButton: false,                                            
