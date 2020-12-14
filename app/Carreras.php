@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Carreras extends Model
 {
     protected $table = "carreras";
-    protected $fillable=['codigo','nombre','estado'];
+    protected $fillable=['nombre'];
+
+
+    public function perfil(){
+        return $this->hasMany('App/FormularioPerfiles');
+    }
 }

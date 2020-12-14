@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnfermedadesCronicasTable extends Migration
+class CreateAnioGraduacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateEnfermedadesCronicasTable extends Migration
      */
     public function up()
     {
-        Schema::create('enfermedades_cronicas', function (Blueprint $table) {
+        Schema::create('anio_graduacion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre',50);
-            
-            
+            $table->string('anio',5);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateEnfermedadesCronicasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enfermedades_cronicas');
+        Schema::dropIfExists('anio_graduacion');
     }
 }

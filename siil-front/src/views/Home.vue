@@ -168,15 +168,15 @@
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Formulario 1</v-list-item-title>
+              <v-list-item-title>Formulario Perfil Ocupacional</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link> <!-- MENU DE pedido despachados-->
+          <v-list-item link :to="{path:'/formulario_seguimiento'}"> 
             <v-list-item-action>
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Formularios 2</v-list-item-title>
+              <v-list-item-title>Formularios Seguimiento a Graduado</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item link> <!-- MENU DE pedido anuilados-->

@@ -37,9 +37,9 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('/aspirante/{id}', 'AspiranteController@index');
     Route::get('/egresado/{id}', 'EgresadoController@index');
     Route::ApiResource("idioma","SegundoIdiomaController");
-    Route::ApiResource("estadocivil","EstadoCivilController"); 
+    Route::ApiResource("carreras","CarreraController"); 
     Route::ApiResource("perfil","FormularioPerfilController"); 
-    Route::ApiResource("enfermedad","EnfermadadCronicaController");  
+    Route::ApiResource("anio_graduacion","AnioGraduacionController");  
     Route::ApiResource("ofertas","OfertaController");
     Route::ApiResource("requisitos","RequisitoController");
     Route::get('/ofertasr', 'OfertaController@find');

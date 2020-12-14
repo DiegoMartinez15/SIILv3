@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class FormularioPerfiles extends Model
 {
     protected $table = "formularios_perfiles";
-    protected $fillable=['idaspirante',
-    'idegresado',
+    protected $fillable=['id_aspirante',
+    'id_egresado',
+    'id_carrera',
     'lugar_nac',
     'celular2',
-    'idestado_civil',
+    'estado_civil',
     'nit',
     'pasaporte',
     'licencia_conducir',
@@ -19,15 +20,14 @@ class FormularioPerfiles extends Model
     'idsegundo_idioma',
     'nivel_idioma',
     'nacionalidad',
-    'idenfermedad_cronica',
+    'enfermedad_cronica',
     'enfermadad_mencion',
     'medicamento_perma',
     'medicamento_mencion',
     'discapacidad',
     'nivel_academico',
     'institucion_formadora',
-    'anio_graduacion',
-    'practica_pro',
+    'id_anio_graduacion',
     'cursos_informacion',
     'oficios_realizar',
     'formacion_emprende',
@@ -39,12 +39,10 @@ class FormularioPerfiles extends Model
     'cargo_desempenado',
     'habilidades_personales',
     'dificultades_personales',
-    'asistencia',
-    'puntualidad',
-    'responsabilidad',
     'disponibilidad_horaria',
     'recomendacion_derivacion',
-    'otra_observacion'];
+    'otra_observacion',
+];
 
     public function aspirante(){
         return $this->hasMany('App/Aspirente');
