@@ -17,7 +17,7 @@
           
         >
       <v-card width="350" class="mx-auto  mt-16  pl-5 pr-5 ">
-        <v-card-title class="justify-center pt-12 "  id="title">
+        <v-card-title class="justify-center pt-12 font-weight-medium  "  id="title">
           Inicia Sesión
         </v-card-title>
         <v-img 
@@ -26,12 +26,12 @@
           <v-form  ref="formUsuarios" v-model="validForm" :lazy-validation="true">
           <v-text-field
            required :rules="[v => !!v || 'El codigo es requerido']"
-            label="Username"
+            label="Codigo de Carnet"
             v-model="login.email"
              prepend-icon="mdi-account-circle"/>
           <v-text-field 
           required
-          label="Password" 
+          label="Contraseña" 
           :type="showPassword ? 'text' : 'password'"
           v-model="login.password"
           prepend-icon="mdi-lock"
@@ -150,10 +150,11 @@
                       me.$store.commit('add',dataU.nombres);
                       me.$store.commit('permission',user.idtipo_usuario);
                       me.$store.commit('setid',user.id);
-                      me.$swal({title:"Bienvenido al SIIL",position: 'center',
-                      icon: 'success',                     
+                      me.$swal({title:"Bienvenido",position: 'center',
+                      icon: 'success',                                      
                       showConfirmButton: false,
                       timer: 2500
+                      
                     });
                       break;
                     case "N":

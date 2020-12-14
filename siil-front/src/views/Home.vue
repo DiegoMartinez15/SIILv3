@@ -343,12 +343,16 @@ export default {
                   localStorage.clear(); 
                   sessionStorage.clear();
                   me.$swal({
-                          position: 'center',
-                          icon: 'success',
+                          position: 'top-end',
+                          //icon: 'success',
                           title: 'Session Cerrada',
                           showConfirmButton: false,
-                          timer: 3000
-                    });
+                          timer: 3000,
+                          imageUrl: '/itcha/logout.png',
+                          imageWidth: 30,
+                          imageHeight: 30,
+                          imageAlt: 'Custom image'  
+                        });
                     me.$router.push('/login'),
                     console.log(response.data)
                }                        

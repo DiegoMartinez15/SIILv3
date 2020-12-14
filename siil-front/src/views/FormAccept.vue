@@ -182,7 +182,10 @@ export default {
             .then(function(response){
                console.log(me.form);
               me.dialog = false;
-              me.$swal({title:"Bienvenido al SIIL",position: 'center',
+              me.$swal({
+                      title:"Acepto el Seguimiento",
+                      text:'Bienvenido',
+                      position: 'center',
                       icon: 'success',                     
                       showConfirmButton: false,
                       timer: 2500
